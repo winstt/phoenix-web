@@ -100,13 +100,21 @@ document.addEventListener('keydown', (e) => {
   if (e.key !== 'Escape') return;
   closeMobileNav();
   closeSearch();
-  closePartnerPanel();
   closeMapCard();
+  // Close any open partner cards
+  document.querySelectorAll('.pcard.is-open').forEach((c) => {
+    c.classList.remove('is-open');
+    c.setAttribute('aria-expanded', 'false');
+    const det = c.querySelector('.pcard-detail');
+    if (det) det.setAttribute('data-open', 'false');
+  });
 });
 
 /* ============================================================
    INLINE SEARCH
    ============================================================ */
+const hSearchBtn    = document.getElementById('h-search-btn');
+const searchBarDrop = document.getElementById('search-bar-drop');
 const hsi = document.getElementById('hsi');   // search input
 const hsd = document.getElementById('hsd');   // search dropdown
 
@@ -127,19 +135,39 @@ const searchIndex = [
 ];
 
 function openSearch() {
-  hsd.removeAttribute('hidden');
-  hsi.setAttribute('aria-expanded', 'true');
+  if (searchBarDrop) {
+    searchBarDrop.classList.add('open');
+    searchBarDrop.removeAttribute('aria-hidden');
+    if (hSearchBtn) hSearchBtn.setAttribute('aria-expanded', 'true');
+    if (hsi) { hsi.focus(); }
+  }
 }
 function closeSearch() {
-  hsd.setAttribute('hidden', '');
-  hsi.setAttribute('aria-expanded', 'false');
+  if (searchBarDrop) {
+    searchBarDrop.classList.remove('open');
+    searchBarDrop.setAttribute('aria-hidden', 'true');
+    if (hSearchBtn) hSearchBtn.setAttribute('aria-expanded', 'false');
+  }
+  if (hsd) hsd.setAttribute('hidden', '');
+  if (hsi) hsi.setAttribute('aria-expanded', 'false');
+}
+
+if (hSearchBtn) {
+  hSearchBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (searchBarDrop && searchBarDrop.classList.contains('open')) {
+      closeSearch();
+    } else {
+      openSearch();
+    }
+  });
 }
 
 if (hsi) {
   hsi.addEventListener('input', () => {
     const q = hsi.value.trim().toLowerCase();
     hsd.innerHTML = '';
-    if (!q) { closeSearch(); return; }
+    if (!q) { hsd.setAttribute('hidden', ''); return; }
 
     const seen = new Set();
     const matches = searchIndex.filter((item) => {
@@ -169,7 +197,7 @@ if (hsi) {
         hsd.appendChild(btn);
       });
     }
-    openSearch();
+    hsd.removeAttribute('hidden');
   });
 
   hsi.addEventListener('keydown', (e) => {
@@ -183,7 +211,9 @@ if (hsi) {
   });
 
   document.addEventListener('click', (e) => {
-    if (!e.target.closest('#header-search')) closeSearch();
+    if (!e.target.closest('#search-bar-drop') && !e.target.closest('#h-search-btn')) {
+      closeSearch();
+    }
   });
 }
 
@@ -305,48 +335,26 @@ if (mapCard) {
 }
 
 /* ============================================================
-   PARTNER PANEL (fixed bottom-right)
+   PARTNER CARDS — in-card accordion
    ============================================================ */
-const panel      = document.getElementById('partner-panel');
-const panelClose = document.getElementById('panel-close');
-const panelRegion= document.getElementById('panel-region');
-const panelName  = document.getElementById('panel-name');
-const panelTagline=document.getElementById('panel-tagline');
-const panelDesc  = document.getElementById('panel-desc');
-
-function openPartnerPanel(data) {
-  if (!panel) return;
-  panelRegion.textContent  = data.region;
-  panelName.textContent    = data.name;
-  panelTagline.textContent = data.tagline;
-  panelDesc.textContent    = data.desc;
-  panel.removeAttribute('hidden');
-  // Force reflow for CSS transition
-  panel.offsetHeight; // eslint-disable-line
-  panel.classList.add('open');
-  panel.setAttribute('aria-hidden', 'false');
-  panelClose.focus();
-}
-
-function closePartnerPanel() {
-  if (!panel) return;
-  panel.classList.remove('open');
-  panel.setAttribute('aria-hidden', 'true');
-  // Hide after transition
-  panel.addEventListener('transitionend', () => {
-    if (!panel.classList.contains('open')) panel.setAttribute('hidden', '');
-  }, { once: true });
-}
-
-if (panelClose) panelClose.addEventListener('click', closePartnerPanel);
-
 document.querySelectorAll('.pcard').forEach((card) => {
-  const activate = () => openPartnerPanel({
-    region:  card.dataset.region,
-    name:    card.dataset.name,
-    tagline: card.dataset.tagline,
-    desc:    card.dataset.desc,
-  });
+  const activate = () => {
+    const isOpen = card.classList.contains('is-open');
+    // Close all
+    document.querySelectorAll('.pcard').forEach((c) => {
+      c.classList.remove('is-open');
+      c.setAttribute('aria-expanded', 'false');
+      const det = c.querySelector('.pcard-detail');
+      if (det) det.setAttribute('data-open', 'false');
+    });
+    // Open this one (toggle)
+    if (!isOpen) {
+      card.classList.add('is-open');
+      card.setAttribute('aria-expanded', 'true');
+      const det = card.querySelector('.pcard-detail');
+      if (det) det.setAttribute('data-open', 'true');
+    }
+  };
 
   card.addEventListener('click', activate);
   card.addEventListener('keydown', (e) => {

@@ -14,26 +14,11 @@
   <!-- ===================== SKIP LINK ===================== -->
   <a class="skip-link" href="#main-content">Skip to main content</a>
 
-  <!-- ===================== PARTNER PANEL (fixed bottom-right) ===================== -->
-  <aside id="partner-panel" class="partner-panel" role="dialog" aria-modal="false"
-         aria-labelledby="panel-name" hidden>
-    <button class="panel-close" id="panel-close" aria-label="Close partner details">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-        <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-    </button>
-    <span class="panel-region" id="panel-region"></span>
-    <h3 class="panel-name"    id="panel-name"></h3>
-    <p  class="panel-tagline" id="panel-tagline"></p>
-    <p  class="panel-desc"    id="panel-desc"></p>
-    <a  class="panel-cta"     href="#network">View all partners &uarr;</a>
-  </aside>
-
   <!-- ===================== HEADER ===================== -->
   <header class="site-header" id="site-header">
 
     <a href="#about" class="header-logo-link" aria-label="The Phoenix Community Trust — go to top">
-      <img src="assets/images/logo-full.png" alt="The Phoenix Community Trust" class="header-logo" />
+      <span class="header-logo-text">The Phoenix Trust</span>
     </a>
 
     <nav class="header-nav" id="main-nav" aria-label="Primary navigation">
@@ -48,18 +33,14 @@
 
     <div class="header-right">
 
-      <!-- Persistent inline search -->
-      <div class="header-search" id="header-search" role="search">
-        <svg class="h-search-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-          <circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.6"/>
-          <path d="M9.5 9.5L13 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      <!-- Search toggle button -->
+      <button class="h-search-btn" id="h-search-btn" aria-label="Open search"
+              aria-expanded="false" aria-controls="search-bar-drop">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M10 10L14 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
         </svg>
-        <label for="hsi" class="sr-only">Search site content</label>
-        <input type="search" id="hsi" class="h-search-input" placeholder="Search…"
-               autocomplete="off" aria-expanded="false" aria-haspopup="listbox"
-               aria-autocomplete="list" aria-controls="hsd" />
-        <div id="hsd" class="h-search-dropdown" role="listbox" aria-label="Search results" hidden></div>
-      </div>
+      </button>
 
       <!-- Social icons (desktop) -->
       <div class="header-socials" aria-label="Follow us on social media">
@@ -105,6 +86,21 @@
 
     </div>
   </header>
+
+  <!-- ===================== SEARCH BAR DROP ===================== -->
+  <div id="search-bar-drop" class="search-bar-drop" aria-hidden="true">
+    <div class="search-bar-inner" id="header-search" role="search">
+      <svg class="h-search-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.6"/>
+        <path d="M10 10L14 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+      <label for="hsi" class="sr-only">Search site content</label>
+      <input type="search" id="hsi" class="h-search-input" placeholder="Search content…"
+             autocomplete="off" aria-expanded="false" aria-haspopup="listbox"
+             aria-autocomplete="list" aria-controls="hsd" />
+      <div id="hsd" class="h-search-dropdown" role="listbox" aria-label="Search results" hidden></div>
+    </div>
+  </div>
 
   <!-- ===================== MOBILE NAV ===================== -->
   <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" aria-hidden="true">
@@ -196,8 +192,9 @@
           </svg>
         </div>
 
-        <img src="assets/images/logo-text.png" alt="The Phoenix Community Trust"
-             class="hero-wordmark reveal-up" style="--delay:0.15s" />
+        <div class="hero-wordmark reveal-up" style="--delay:0.15s" aria-label="The Phoenix Community Trust">
+          <p class="hero-wordmark-text">THE PHOENIX<br>COMMUNITY TRUST</p>
+        </div>
 
         <p class="hero-sub reveal-up" style="--delay:0.26s">
           A Global Majority movement for funding justice and systems change across the UK.
@@ -379,6 +376,12 @@
             <span class="pc-region">North East &amp; Cumbria</span>
             <h3 class="pc-name">Anti Racist Cumbria</h3>
             <span class="pc-hint" aria-hidden="true">tap for details</span>
+            <div class="pcard-detail">
+              <div class="pcard-detail-inner">
+                <p class="pc-tagline">DISMANTLING RACISM, ADVANCING JUSTICE.</p>
+                <p class="pc-desc">Anti Racist Cumbria is a community-led network building collective power across Cumbria and the North East.</p>
+              </div>
+            </div>
           </div>
 
           <div class="pcard reveal-up" style="--delay:0.05s; --rot:1.5deg; --fd:6s; --fdt:-1.5s"
@@ -390,6 +393,12 @@
             <span class="pc-region">North West</span>
             <h3 class="pc-name">Inclusive North</h3>
             <span class="pc-hint" aria-hidden="true">tap for details</span>
+            <div class="pcard-detail">
+              <div class="pcard-detail-inner">
+                <p class="pc-tagline">CHAMPIONING RACIAL UNITY.</p>
+                <p class="pc-desc">Inclusive North drives change for Global Majority communities across Lancashire through research, policy innovation and investment.</p>
+              </div>
+            </div>
           </div>
 
           <div class="pcard reveal-up" style="--delay:0.10s; --rot:-1deg; --fd:8s; --fdt:-3s"
@@ -401,6 +410,12 @@
             <span class="pc-region">Yorkshire &amp; Humber</span>
             <h3 class="pc-name">Impact Hub Yorkshire</h3>
             <span class="pc-hint" aria-hidden="true">tap for details</span>
+            <div class="pcard-detail">
+              <div class="pcard-detail-inner">
+                <p class="pc-tagline">POWERING POSITIVE CHANGE IN YORKSHIRE.</p>
+                <p class="pc-desc">A collaborative community connecting entrepreneurs, innovators, and organisations driving positive social and environmental change across Yorkshire.</p>
+              </div>
+            </div>
           </div>
 
           <div class="pcard reveal-up" style="--delay:0.15s; --rot:2deg; --fd:6.5s; --fdt:-2s"
@@ -412,6 +427,12 @@
             <span class="pc-region">Greater London &amp; South East</span>
             <h3 class="pc-name">The Ubele Initiative</h3>
             <span class="pc-hint" aria-hidden="true">tap for details</span>
+            <div class="pcard-detail">
+              <div class="pcard-detail-inner">
+                <p class="pc-tagline">ADVOCATING FOR EQUITY &amp; JUSTICE.</p>
+                <p class="pc-desc">The Ubele Initiative empowers Global Majority communities in the UK to act as catalysts for social and economic change.</p>
+              </div>
+            </div>
           </div>
 
           <div class="pcard reveal-up" style="--delay:0.20s; --rot:-1.5deg; --fd:7.5s; --fdt:-4s"
@@ -423,6 +444,12 @@
             <span class="pc-region">South West</span>
             <h3 class="pc-name">Black South West Network</h3>
             <span class="pc-hint" aria-hidden="true">tap for details</span>
+            <div class="pcard-detail">
+              <div class="pcard-detail-inner">
+                <p class="pc-tagline">BUILDING POWER. CREATING CHANGE.</p>
+                <p class="pc-desc">Works across the South West to advance racial justice, amplify Black voices, and build lasting opportunities for equity.</p>
+              </div>
+            </div>
           </div>
 
           <div class="pcard reveal-up" style="--delay:0.25s; --rot:1deg; --fd:9s; --fdt:-2.5s"
@@ -434,6 +461,12 @@
             <span class="pc-region">East &amp; West Midlands</span>
             <h3 class="pc-name">South Asian Health Action</h3>
             <span class="pc-hint" aria-hidden="true">tap for details</span>
+            <div class="pcard-detail">
+              <div class="pcard-detail-inner">
+                <p class="pc-tagline">IMPROVING HEALTH. ADVANCING EQUITY.</p>
+                <p class="pc-desc">Works to improve health outcomes and reduce inequalities for South Asian communities through research, advocacy, and action.</p>
+              </div>
+            </div>
           </div>
 
         </div>
@@ -566,18 +599,14 @@
     </section>
 
     <!-- ---- JOIN OUR COMMUNITY ---- -->
-    <section class="section join-section" id="join" aria-labelledby="join-h">
+    <section class="section join-section" id="join" aria-label="Join our community">
       <div class="container center">
-        <span class="eyebrow reveal-up">Be part of the movement</span>
-        <h2 class="section-h reveal-up" id="join-h" style="--delay:0.08s">
-          Join our<br><span class="gradient-text">community.</span>
-        </h2>
-        <p class="section-body reveal-up" style="--delay:0.16s">
-          The Phoenix Community Trust is more than a network — it is a movement. Whether you are a community leader, an organisation, or an individual who believes in funding justice, there is a place for you here. Together, we reshape how power and resources flow to Global Majority communities across the UK.
-        </p>
-        <a href="mailto:info@phoenix-trust.co.uk" class="btn-join reveal-up" style="--delay:0.26s">
+        <a href="mailto:info@phoenix-trust.co.uk" class="btn-join reveal-up">
           Join our community
         </a>
+        <p class="section-body join-body reveal-up" style="--delay:0.12s">
+          The Phoenix Community Trust is more than a network — it is a movement. Whether you are a community leader, an organisation, or an individual who believes in funding justice, there is a place for you here.
+        </p>
       </div>
     </section>
 

@@ -110,8 +110,6 @@ document.addEventListener('keydown', (e) => {
   document.querySelectorAll('.pcard.is-open').forEach((c) => {
     c.classList.remove('is-open');
     c.setAttribute('aria-expanded', 'false');
-    const det = c.querySelector('.pcard-detail');
-    if (det) det.setAttribute('data-open', 'false');
   });
 });
 
@@ -340,7 +338,7 @@ if (mapCard) {
 }
 
 /* ============================================================
-   PARTNER CARDS — in-card accordion
+   PARTNER CARDS — in-card accordion (class-driven CSS transition)
    ============================================================ */
 document.querySelectorAll('.pcard').forEach((card) => {
   const activate = () => {
@@ -349,15 +347,11 @@ document.querySelectorAll('.pcard').forEach((card) => {
     document.querySelectorAll('.pcard').forEach((c) => {
       c.classList.remove('is-open');
       c.setAttribute('aria-expanded', 'false');
-      const det = c.querySelector('.pcard-detail');
-      if (det) det.setAttribute('data-open', 'false');
     });
     // Open this one (toggle)
     if (!isOpen) {
       card.classList.add('is-open');
       card.setAttribute('aria-expanded', 'true');
-      const det = card.querySelector('.pcard-detail');
-      if (det) det.setAttribute('data-open', 'true');
     }
   };
 
@@ -382,21 +376,18 @@ document.querySelectorAll('.gstep-body').forEach((body) => {
 document.querySelectorAll('.gstep-toggle').forEach((toggle) => {
   toggle.addEventListener('click', () => {
     const step   = toggle.closest('.gstep');
-    const bodyEl = toggle.nextElementSibling; // .gstep-body
     const isOpen = step.classList.contains('is-open');
 
-    // Close all
+    // Close all — CSS handles .gstep-body via .gstep.is-open child selector
     document.querySelectorAll('.gstep').forEach((s) => {
       s.classList.remove('is-open');
       s.querySelector('.gstep-toggle').setAttribute('aria-expanded', 'false');
-      s.querySelector('.gstep-body').setAttribute('data-open', 'false');
     });
 
     // Open this one (toggle)
     if (!isOpen) {
       step.classList.add('is-open');
       toggle.setAttribute('aria-expanded', 'true');
-      bodyEl.setAttribute('data-open', 'true');
     }
   });
 });

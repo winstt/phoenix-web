@@ -136,12 +136,15 @@ button{ cursor: pointer; font-family: inherit; border: none; background: none; }
   height: var(--h);
   display: flex; align-items: center; justify-content: flex-end;
   padding: 0 24px;
-  background: rgba(10,10,10,0.65);
+  background: rgba(14,7,2,0.88);
   backdrop-filter: blur(20px) saturate(160%);
-  border-bottom: 1px solid var(--border);
-  transition: background 0.4s ease;
+  border-bottom: 1px solid rgba(245,166,35,0.12);
+  transition: background 0.4s ease, border-color 0.4s ease;
 }
-.site-header.scrolled { background: rgba(10,10,10,0.96); }
+.site-header.scrolled {
+  background: rgba(10,10,10,0.97);
+  border-bottom-color: rgba(245,166,35,0.18);
+}
 
 /* Center nav */
 .header-nav {
@@ -448,7 +451,7 @@ button{ cursor: pointer; font-family: inherit; border: none; background: none; }
 #where-we-work { padding: 80px 0 52px; }
 .map-container {
   position: relative; flex-shrink: 0;
-  width: clamp(200px, 30vw, 320px);
+  width: clamp(240px, 36vw, 420px);
 }
 .uk-map-bg {
   width: 100%; display: block;
@@ -597,9 +600,9 @@ button{ cursor: pointer; font-family: inherit; border: none; background: none; }
 }
 .pcard-detail {
   max-height: 0; overflow: hidden; opacity: 0;
-  transition: max-height 0.45s var(--ease), opacity 0.32s ease;
+  transition: max-height 0.44s ease-in-out, opacity 0.3s ease;
 }
-.pcard-detail[data-open="true"] { max-height: 240px; opacity: 1; }
+.pcard.is-open .pcard-detail { max-height: 300px; opacity: 1; }
 .pcard-detail-inner {
   padding-top: 14px; margin-top: 6px;
   border-top: 1px solid var(--border);
@@ -665,9 +668,9 @@ button{ cursor: pointer; font-family: inherit; border: none; background: none; }
 
 .gstep-body {
   max-height: 0; overflow: hidden; opacity: 0;
-  transition: max-height 0.45s var(--ease), opacity 0.32s ease;
+  transition: max-height 0.44s ease-in-out, opacity 0.3s ease;
 }
-.gstep-body[data-open="true"] { max-height: 300px; opacity: 1; }
+.gstep.is-open .gstep-body { max-height: 400px; opacity: 1; }
 
 .gstep-body-inner { padding: 4px 22px 22px; }
 .gstep-body-inner p {

@@ -59,11 +59,16 @@ function scrollToSection(hash) {
 document.querySelectorAll('a[href^="#"]').forEach((a) => {
   a.addEventListener('click', (e) => {
     const hash = a.getAttribute('href');
-    if (!document.querySelector(hash)) return;
+    const target = document.querySelector(hash);
+    if (!target) return;
     e.preventDefault();
     scrollToSection(hash);
     closeMobileNav();
     closeSearch();
+    // Move keyboard focus to the section so Tab continues from there
+    setTimeout(() => {
+      target.focus({ preventScroll: true });
+    }, 420);
   });
 });
 
@@ -363,31 +368,8 @@ document.querySelectorAll('.pcard').forEach((card) => {
 });
 
 /* ============================================================
-   GRANTS ACCORDION (smooth custom)
+   GRANTS ACCORDION (smooth open + close via max-height + opacity)
    ============================================================ */
-document.querySelectorAll('.gstep-toggle').forEach((toggle) => {
-  toggle.addEventListener('click', () => {
-    const step    = toggle.closest('.gstep');
-    const bodyEl  = toggle.nextElementSibling; // .gstep-body
-    const isOpen  = step.classList.contains('is-open');
-
-    // Close all
-    document.querySelectorAll('.gstep').forEach((s) => {
-      s.classList.remove('is-open');
-      s.querySelector('.gstep-toggle').setAttribute('aria-expanded', 'false');
-      const b = s.querySelector('.gstep-body');
-      b.setAttribute('data-open', 'false');
-    });
-
-    // Open this one (toggle)
-    if (!isOpen) {
-      step.classList.add('is-open');
-      toggle.setAttribute('aria-expanded', 'true');
-      bodyEl.setAttribute('data-open', 'true');
-      bodyEl.removeAttribute('hidden');
-    }
-  });
-});
 
 // Wrap inner content for padding without affecting max-height transition
 document.querySelectorAll('.gstep-body').forEach((body) => {
@@ -395,6 +377,28 @@ document.querySelectorAll('.gstep-body').forEach((body) => {
   inner.className = 'gstep-body-inner';
   while (body.firstChild) inner.appendChild(body.firstChild);
   body.appendChild(inner);
+});
+
+document.querySelectorAll('.gstep-toggle').forEach((toggle) => {
+  toggle.addEventListener('click', () => {
+    const step   = toggle.closest('.gstep');
+    const bodyEl = toggle.nextElementSibling; // .gstep-body
+    const isOpen = step.classList.contains('is-open');
+
+    // Close all
+    document.querySelectorAll('.gstep').forEach((s) => {
+      s.classList.remove('is-open');
+      s.querySelector('.gstep-toggle').setAttribute('aria-expanded', 'false');
+      s.querySelector('.gstep-body').setAttribute('data-open', 'false');
+    });
+
+    // Open this one (toggle)
+    if (!isOpen) {
+      step.classList.add('is-open');
+      toggle.setAttribute('aria-expanded', 'true');
+      bodyEl.setAttribute('data-open', 'true');
+    }
+  });
 });
 
 /* ============================================================

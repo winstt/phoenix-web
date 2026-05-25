@@ -14,12 +14,18 @@
   <!-- ===================== SKIP LINK ===================== -->
   <a class="skip-link" href="#main-content">Skip to main content</a>
 
+  <!-- ===================== SECTION JUMP NAV (keyboard) ===================== -->
+  <nav class="section-jumps" aria-label="Jump to section">
+    <a class="sj-link" href="#impact">Our Impact</a>
+    <a class="sj-link" href="#where-we-work">Where We Work</a>
+    <a class="sj-link" href="#network">Network</a>
+    <a class="sj-link" href="#grants">Grants</a>
+    <a class="sj-link" href="#news">News</a>
+    <a class="sj-link" href="#contact">Contact</a>
+  </nav>
+
   <!-- ===================== HEADER ===================== -->
   <header class="site-header" id="site-header">
-
-    <a href="#about" class="header-logo-link" aria-label="The Phoenix Community Trust — go to top">
-      <span class="header-logo-text">The Phoenix Trust</span>
-    </a>
 
     <nav class="header-nav" id="main-nav" aria-label="Primary navigation">
       <a href="#about"         class="nav-link" data-section="about">About Us</a>
@@ -41,40 +47,6 @@
           <path d="M10 10L14 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
         </svg>
       </button>
-
-      <!-- Social icons (desktop) -->
-      <div class="header-socials" aria-label="Follow us on social media">
-        <a href="#" class="h-social" aria-label="Instagram" rel="noopener">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-            <rect x="2" y="2" width="20" height="20" rx="5"/>
-            <circle cx="12" cy="12" r="4"/>
-            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-          </svg>
-        </a>
-        <a href="#" class="h-social" aria-label="Facebook" rel="noopener">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-          </svg>
-        </a>
-        <a href="#" class="h-social" aria-label="YouTube" rel="noopener">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-            <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/>
-            <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/>
-          </svg>
-        </a>
-        <a href="#" class="h-social" aria-label="X (Twitter)" rel="noopener">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-            <path d="M4 4l16 16M20 4L4 20"/>
-          </svg>
-        </a>
-        <a href="#" class="h-social" aria-label="LinkedIn" rel="noopener">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/>
-            <rect x="2" y="9" width="4" height="12"/>
-            <circle cx="4" cy="4" r="2"/>
-          </svg>
-        </a>
-      </div>
 
       <!-- Hamburger (mobile) -->
       <button class="hamburger" id="hamburger"
@@ -157,7 +129,7 @@
   <main id="main-content" tabindex="-1">
 
     <!-- ---- HERO / ABOUT ---- -->
-    <section class="hero" id="about" aria-labelledby="hero-heading">
+    <section class="hero" id="about" aria-labelledby="hero-heading" tabindex="-1">
       <div class="hero-glow" aria-hidden="true"></div>
       <h1 class="sr-only" id="hero-heading">The Phoenix Community Trust</h1>
 
@@ -185,7 +157,7 @@
     </section>
 
     <!-- ---- OUR IMPACT ---- -->
-    <section class="section" id="impact" aria-labelledby="impact-h">
+    <section class="section" id="impact" aria-labelledby="impact-h" tabindex="-1">
       <div class="container center">
         <span class="eyebrow reveal-up">Our Impact</span>
         <h2 class="section-h reveal-up" id="impact-h" style="--delay:0.08s">
@@ -217,7 +189,7 @@
     </section>
 
     <!-- ---- WHERE WE WORK — UK MAP ---- -->
-    <section class="section" id="where-we-work" aria-labelledby="wwh-h">
+    <section class="section" id="where-we-work" aria-labelledby="wwh-h" tabindex="-1">
       <div class="container center">
         <span class="eyebrow reveal-up">Where We Work</span>
         <h2 class="section-h reveal-up" id="wwh-h" style="--delay:0.08s">Our current active regions</h2>
@@ -332,7 +304,7 @@
     </section>
 
     <!-- ---- NETWORK ---- -->
-    <section class="section" id="network" aria-labelledby="net-h">
+    <section class="section" id="network" aria-labelledby="net-h" tabindex="-1">
       <div class="container center">
         <span class="eyebrow reveal-up">Our Network</span>
         <h2 class="section-h reveal-up" id="net-h" style="--delay:0.08s">Our current partners</h2>
@@ -449,7 +421,7 @@
     </section>
 
     <!-- ---- GRANTS ---- -->
-    <section class="section grants-section" id="grants" aria-labelledby="grants-h">
+    <section class="section grants-section" id="grants" aria-labelledby="grants-h" tabindex="-1">
       <div class="container center">
         <span class="eyebrow reveal-up">Grants</span>
         <h2 class="section-h reveal-up" id="grants-h" style="--delay:0.08s">
@@ -473,7 +445,7 @@
                 <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
               </svg>
             </button>
-            <div class="gstep-body" id="gs1-body" role="region" aria-label="Explore our latest grants" hidden>
+            <div class="gstep-body" id="gs1-body" role="region" aria-label="Explore our latest grants">
               <p>Be part of a national movement strengthening leadership and collaboration across the UK. Register your interest to receive updates on upcoming grants, events, and opportunities to engage with The Phoenix Community Trust.</p>
               <a href="#contact" class="gstep-cta">Register your interest &rarr;</a>
             </div>
@@ -487,7 +459,7 @@
                 <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
               </svg>
             </button>
-            <div class="gstep-body" id="gs2-body" role="region" aria-label="National Lottery collaboration" hidden>
+            <div class="gstep-body" id="gs2-body" role="region" aria-label="National Lottery collaboration">
               <p>An upcoming £4M grants round in collaboration with The National Lottery Community Fund — a significant investment in Global Majority communities across all 9 active UK regions.</p>
             </div>
           </div>
@@ -500,7 +472,7 @@
                 <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
               </svg>
             </button>
-            <div class="gstep-body" id="gs3-body" role="region" aria-label="2026 Strategic development" hidden>
+            <div class="gstep-body" id="gs3-body" role="region" aria-label="2026 Strategic development">
               <p>In 2026, communities will have the opportunity to shape Phoenix's strategic direction — your chance to influence how resources are distributed and how the movement grows.</p>
             </div>
           </div>
@@ -510,7 +482,7 @@
     </section>
 
     <!-- ---- NEWS ---- -->
-    <section class="section" id="news" aria-labelledby="news-h">
+    <section class="section" id="news" aria-labelledby="news-h" tabindex="-1">
       <div class="container center">
         <span class="eyebrow reveal-up">News</span>
         <h2 class="section-h reveal-up" id="news-h" style="--delay:0.08s">
@@ -586,7 +558,7 @@
     </section>
 
     <!-- ---- CONTACT ---- -->
-    <section class="section contact-section" id="contact" aria-labelledby="contact-h">
+    <section class="section contact-section" id="contact" aria-labelledby="contact-h" tabindex="-1">
       <div class="container">
         <div class="contact-wrap">
 

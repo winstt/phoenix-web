@@ -1,5 +1,6 @@
 /* ============================================================
    PHOENIX COMMUNITY TRUST — script.js
+   WCAG 2.2 AA keyboard/ARIA | Search inline | Map cards | Partner panel
    ============================================================ */
 'use strict';
 
@@ -12,49 +13,57 @@ const revealObs = new IntersectionObserver((entries) => {
     e.target.classList.add('visible');
     revealObs.unobserve(e.target);
   });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+}, { threshold: 0.1, rootMargin: '0px 0px -36px 0px' });
 
 document.querySelectorAll('.reveal-up').forEach((el) => revealObs.observe(el));
 
 /* ============================================================
-   HEADER — scroll class + active nav link
+   HEADER — scroll state + active nav
    ============================================================ */
 const header = document.getElementById('site-header');
+
 window.addEventListener('scroll', () => {
   header.classList.toggle('scrolled', window.scrollY > 60);
 }, { passive: true });
 
-// Highlight active nav link based on current section
-const sections = document.querySelectorAll('section[id]');
+// Active nav link — track by section in view
+const sections = document.querySelectorAll('main section[id]');
 const navLinks  = document.querySelectorAll('.nav-link');
 
 const sectionObs = new IntersectionObserver((entries) => {
   entries.forEach((e) => {
     if (!e.isIntersecting) return;
     navLinks.forEach((l) => {
-      l.classList.toggle('active', l.dataset.section === e.target.id);
+      const active = l.dataset.section === e.target.id;
+      l.classList.toggle('active', active);
+      l.setAttribute('aria-current', active ? 'true' : 'false');
     });
   });
 }, { threshold: 0.35 });
-
 sections.forEach((s) => sectionObs.observe(s));
 
 /* ============================================================
-   SMOOTH SCROLL for anchor links
+   SMOOTH SCROLL — anchor links
+   Bug fix: read offsetHeight directly instead of CSS variable
    ============================================================ */
+function scrollToSection(hash) {
+  const target = document.querySelector(hash);
+  if (!target) return;
+  const headerH = document.getElementById('site-header').offsetHeight;
+  window.scrollTo({
+    top: target.getBoundingClientRect().top + window.scrollY - headerH,
+    behavior: 'smooth',
+  });
+}
+
 document.querySelectorAll('a[href^="#"]').forEach((a) => {
   a.addEventListener('click', (e) => {
-    const target = document.querySelector(a.getAttribute('href'));
-    if (!target) return;
+    const hash = a.getAttribute('href');
+    if (!document.querySelector(hash)) return;
     e.preventDefault();
-    const offset = parseInt(getComputedStyle(document.documentElement)
-      .getPropertyValue('--h')) || 68;
-    window.scrollTo({
-      top: target.getBoundingClientRect().top + window.scrollY - offset,
-      behavior: 'smooth',
-    });
-    // Close mobile nav if open
+    scrollToSection(hash);
     closeMobileNav();
+    closeSearch();
   });
 });
 
@@ -66,111 +75,117 @@ const mobileNav  = document.getElementById('mobile-nav');
 const mobileClose= document.getElementById('mobile-close');
 const navOverlay = document.getElementById('nav-overlay');
 
-function openMobileNav()  {
+function openMobileNav() {
   mobileNav.classList.add('open');
+  mobileNav.removeAttribute('aria-hidden');
   navOverlay.classList.add('open');
+  hamburger.setAttribute('aria-expanded', 'true');
   document.body.style.overflow = 'hidden';
+  mobileClose.focus();
 }
 function closeMobileNav() {
   mobileNav.classList.remove('open');
+  mobileNav.setAttribute('aria-hidden', 'true');
   navOverlay.classList.remove('open');
+  hamburger.setAttribute('aria-expanded', 'false');
   document.body.style.overflow = '';
 }
 
-hamburger.addEventListener('click', openMobileNav);
-mobileClose.addEventListener('click', closeMobileNav);
-navOverlay.addEventListener('click', closeMobileNav);
+if (hamburger)  hamburger.addEventListener('click', openMobileNav);
+if (mobileClose)mobileClose.addEventListener('click', closeMobileNav);
+if (navOverlay) navOverlay.addEventListener('click', closeMobileNav);
+
+/* Escape closes everything */
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') { closeMobileNav(); closeSearch(); }
+  if (e.key !== 'Escape') return;
+  closeMobileNav();
+  closeSearch();
+  closePartnerPanel();
+  closeMapCard();
 });
 
 /* ============================================================
-   SEARCH
+   INLINE SEARCH
    ============================================================ */
-const searchBtn     = document.getElementById('search-btn');
-const searchOverlay = document.getElementById('search-overlay');
-const searchClose   = document.getElementById('search-close');
-const searchInput   = document.getElementById('search-input');
-const searchResults = document.getElementById('search-results');
+const hsi = document.getElementById('hsi');   // search input
+const hsd = document.getElementById('hsd');   // search dropdown
 
-// Searchable content index
 const searchIndex = [
-  { section: 'about',         label: 'About Us',           text: 'phoenix community trust global majority movement funding justice systems change redistribution power resources uk' },
-  { section: 'impact',        label: 'Our Impact',         text: 'our impact 9 regions 100 community organisations 4m grants national lottery 2026 uniting people organisations uk leadership innovation' },
-  { section: 'where-we-work', label: 'Where We Work',      text: 'where we work north east cumbria north west yorkshire humber east midlands west midlands east of england greater london south east south west active regions' },
-  { section: 'network',       label: 'Anti Racist Cumbria',text: 'anti racist cumbria dismantling racism advancing justice community led network collective power cumbria north east' },
-  { section: 'network',       label: 'Inclusive North',    text: 'inclusive north championing racial unity lancashire north west research policy innovation investment global majority' },
-  { section: 'network',       label: 'Impact Hub Yorkshire',text: 'impact hub yorkshire powering positive change entrepreneurs innovators social environmental change yorkshire humber' },
-  { section: 'network',       label: 'The Ubele Initiative',text: 'ubele initiative equity justice greater london south east east england global majority social economic change' },
-  { section: 'network',       label: 'Black South West Network',text: 'black south west network building power creating change racial justice black voices equity south west' },
-  { section: 'network',       label: 'South Asian Health Action',text: 'south asian health action improving health advancing equity midlands research advocacy south asian communities' },
-  { section: 'grants',        label: 'Grants',             text: 'grants funding justice action 4m national lottery community fund 2026 strategic development register interest global majority' },
-  { section: 'news',          label: 'News & Updates',     text: 'news updates stories insights announcements community grants cheltenham partnership 2026 grants round strategy development' },
-  { section: 'contact',       label: 'Contact',            text: 'contact get in touch collaboration conversation connection info@phoenix-trust.co.uk media press enquiries' },
+  { section: 'about',         label: 'About Us',                text: 'phoenix community trust global majority movement funding justice systems change uk' },
+  { section: 'impact',        label: 'Our Impact',              text: 'impact 9 regions 100 organisations 4m grants national lottery 2026 uniting people leadership innovation' },
+  { section: 'where-we-work', label: 'Where We Work',           text: 'where we work north east cumbria north west yorkshire humber east midlands west midlands east england greater london south east south west active regions' },
+  { section: 'network',       label: 'Anti Racist Cumbria',     text: 'anti racist cumbria dismantling racism advancing justice community led network cumbria north east' },
+  { section: 'network',       label: 'Inclusive North',         text: 'inclusive north championing racial unity lancashire north west global majority policy innovation' },
+  { section: 'network',       label: 'Impact Hub Yorkshire',    text: 'impact hub yorkshire powering positive change entrepreneurs innovators social environmental' },
+  { section: 'network',       label: 'The Ubele Initiative',    text: 'ubele initiative equity justice london south east east england global majority social economic' },
+  { section: 'network',       label: 'Black South West Network',text: 'black south west network building power creating change racial justice south west' },
+  { section: 'network',       label: 'South Asian Health Action',text: 'south asian health action improving health equity midlands research advocacy' },
+  { section: 'grants',        label: 'Grants',                  text: 'grants funding justice action 4m national lottery 2026 strategic development register interest' },
+  { section: 'news',          label: 'News & Updates',          text: 'news updates announcements community grants cheltenham partnership strategy 2026' },
+  { section: 'join',          label: 'Join Our Community',      text: 'join community movement be part phoenix trust' },
+  { section: 'contact',       label: 'Contact',                 text: 'contact get in touch email info@phoenix-trust.co.uk collaboration media press' },
 ];
 
 function openSearch() {
-  searchOverlay.classList.add('open');
-  searchInput.focus();
-  document.body.style.overflow = 'hidden';
+  hsd.removeAttribute('hidden');
+  hsi.setAttribute('aria-expanded', 'true');
 }
 function closeSearch() {
-  searchOverlay.classList.remove('open');
-  searchInput.value = '';
-  searchResults.innerHTML = '';
-  document.body.style.overflow = '';
+  hsd.setAttribute('hidden', '');
+  hsi.setAttribute('aria-expanded', 'false');
 }
 
-searchBtn.addEventListener('click', openSearch);
-searchClose.addEventListener('click', closeSearch);
-searchOverlay.addEventListener('click', (e) => {
-  if (e.target === searchOverlay) closeSearch();
-});
+if (hsi) {
+  hsi.addEventListener('input', () => {
+    const q = hsi.value.trim().toLowerCase();
+    hsd.innerHTML = '';
+    if (!q) { closeSearch(); return; }
 
-searchInput.addEventListener('input', () => {
-  const q = searchInput.value.trim().toLowerCase();
-  searchResults.innerHTML = '';
-
-  if (!q) return;
-
-  const matches = searchIndex.filter((item) =>
-    item.text.includes(q) || item.label.toLowerCase().includes(q)
-  );
-
-  if (!matches.length) {
-    searchResults.innerHTML = '<p class="search-empty">No results found.</p>';
-    return;
-  }
-
-  // Deduplicate by section+label
-  const seen = new Set();
-  matches.forEach((item) => {
-    const key = item.section + item.label;
-    if (seen.has(key)) return;
-    seen.add(key);
-
-    const btn = document.createElement('button');
-    btn.className = 'search-result-item';
-    btn.innerHTML = `
-      <span class="search-result-section">${item.label}</span>
-      <span class="search-result-text">#${item.section}</span>
-    `;
-    btn.addEventListener('click', () => {
-      closeSearch();
-      const target = document.getElementById(item.section);
-      if (!target) return;
-      const offset = parseInt(getComputedStyle(document.documentElement)
-        .getPropertyValue('--h')) || 68;
-      setTimeout(() => {
-        window.scrollTo({
-          top: target.getBoundingClientRect().top + window.scrollY - offset,
-          behavior: 'smooth',
-        });
-      }, 100);
+    const seen = new Set();
+    const matches = searchIndex.filter((item) => {
+      const key = item.section + item.label;
+      if (seen.has(key)) return false;
+      if (item.text.includes(q) || item.label.toLowerCase().includes(q)) {
+        seen.add(key);
+        return true;
+      }
+      return false;
     });
-    searchResults.appendChild(btn);
+
+    if (!matches.length) {
+      hsd.innerHTML = '<p class="sdr-empty">No results found.</p>';
+    } else {
+      matches.slice(0, 6).forEach((item) => {
+        const btn = document.createElement('button');
+        btn.className = 'sdr-item';
+        btn.setAttribute('role', 'option');
+        btn.innerHTML = `<span class="sdr-section">${item.label}</span><span class="sdr-text">#${item.section}</span>`;
+        btn.addEventListener('click', () => {
+          scrollToSection('#' + item.section);
+          hsi.value = '';
+          closeSearch();
+          hsi.blur();
+        });
+        hsd.appendChild(btn);
+      });
+    }
+    openSearch();
   });
-});
+
+  hsi.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') { closeSearch(); hsi.blur(); }
+    // Arrow key navigation within dropdown
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      const first = hsd.querySelector('.sdr-item');
+      if (first) first.focus();
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('#header-search')) closeSearch();
+  });
+}
 
 /* ============================================================
    COUNTER ANIMATION
@@ -180,11 +195,15 @@ function animateCount(el) {
   const suffix = el.dataset.suffix || '';
   const target = parseInt(el.dataset.count, 10);
   if (isNaN(target)) return;
+  // Respect reduced motion
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    el.textContent = prefix + target + suffix;
+    return;
+  }
   const dur = 1400;
   const start = performance.now();
-
   const tick = (now) => {
-    const p = Math.min((now - start) / dur, 1);
+    const p     = Math.min((now - start) / dur, 1);
     const eased = 1 - Math.pow(2, -10 * p);
     el.textContent = prefix + Math.round(eased * target) + suffix;
     if (p < 1) requestAnimationFrame(tick);
@@ -200,100 +219,245 @@ const counterObs = new IntersectionObserver((entries) => {
     counterObs.unobserve(e.target);
   });
 }, { threshold: 0.5 });
-
 document.querySelectorAll('.stat-card').forEach((c) => counterObs.observe(c));
 
 /* ============================================================
-   ENGLAND MAP — dots tooltip
+   UK MAP — region dots → floating data card
    ============================================================ */
-const mapWrap   = document.querySelector('.map-wrap');
-const tooltip   = document.getElementById('map-tooltip');
-const regionDots= document.querySelectorAll('.region-dot');
+const mapCard   = document.getElementById('map-card');
+const mcName    = document.getElementById('mc-name');
+const mcPartner = document.getElementById('mc-partner');
+let   mapCardTimeout;
 
-regionDots.forEach((dot) => {
-  dot.addEventListener('mouseenter', (e) => {
-    const name = dot.dataset.name;
-    const svgEl = dot.closest('svg');
-    const core  = dot.querySelector('.dot-core');
-    if (!svgEl || !core || !tooltip) return;
+function showMapCard(dot, container) {
+  const name    = dot.dataset.name    || '';
+  const partner = dot.dataset.partner || '';
+  if (!mapCard || !name) return;
 
-    const svgRect  = svgEl.getBoundingClientRect();
-    const dotRect  = core.getBoundingClientRect();
+  mcName.textContent    = name;
+  mcPartner.textContent = partner ? `Partner: ${partner}` : '';
+  mcPartner.style.display = partner ? '' : 'none';
 
-    tooltip.textContent = name;
-    tooltip.style.left  = (dotRect.left - svgRect.left + dotRect.width / 2) + 'px';
-    tooltip.style.top   = (dotRect.top  - svgRect.top) + 'px';
-    tooltip.classList.add('show');
+  // Position: get dot core circle coords relative to container
+  const dotCore   = dot.querySelector('.dc');
+  const svgEl     = dot.closest('svg');
+  const ctRect    = container.getBoundingClientRect();
+  const svgRect   = svgEl.getBoundingClientRect();
+  const cx        = parseFloat(dotCore.getAttribute('cx'));
+  const cy        = parseFloat(dotCore.getAttribute('cy'));
+  const vb        = svgEl.viewBox.baseVal;
+
+  // Map SVG coords to pixel coords relative to container
+  const scaleX    = svgRect.width  / vb.width;
+  const scaleY    = svgRect.height / vb.height;
+  const pxX       = (svgRect.left - ctRect.left) + cx * scaleX;
+  const pxY       = (svgRect.top  - ctRect.top)  + cy * scaleY;
+
+  // Place card: right of dot if room, else left
+  const cardW = 200;
+  const gap   = 16;
+  let   left  = pxX + gap;
+  if (left + cardW > ctRect.width) left = pxX - cardW - gap;
+
+  mapCard.style.left   = Math.max(0, left) + 'px';
+  mapCard.style.top    = (pxY - 20) + 'px';
+  mapCard.removeAttribute('hidden');
+}
+
+function closeMapCard() {
+  if (mapCard) mapCard.setAttribute('hidden', '');
+}
+
+document.querySelectorAll('.rdot').forEach((dot) => {
+  const container = dot.closest('.map-container');
+
+  // Mouse hover
+  dot.addEventListener('mouseenter', () => {
+    clearTimeout(mapCardTimeout);
+    showMapCard(dot, container);
   });
   dot.addEventListener('mouseleave', () => {
-    if (tooltip) tooltip.classList.remove('show');
+    mapCardTimeout = setTimeout(closeMapCard, 300);
+  });
+
+  // Keyboard focus
+  dot.addEventListener('focus', () => {
+    clearTimeout(mapCardTimeout);
+    showMapCard(dot, container);
+  });
+  dot.addEventListener('blur', () => {
+    mapCardTimeout = setTimeout(closeMapCard, 300);
+  });
+
+  // Enter/Space activates (scrolls to network)
+  dot.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      scrollToSection('#network');
+    }
+  });
+});
+
+// Keep card open when hovering over it
+if (mapCard) {
+  mapCard.addEventListener('mouseenter', () => clearTimeout(mapCardTimeout));
+  mapCard.addEventListener('mouseleave', () => { mapCardTimeout = setTimeout(closeMapCard, 300); });
+}
+
+/* ============================================================
+   PARTNER PANEL (fixed bottom-right)
+   ============================================================ */
+const panel      = document.getElementById('partner-panel');
+const panelClose = document.getElementById('panel-close');
+const panelRegion= document.getElementById('panel-region');
+const panelName  = document.getElementById('panel-name');
+const panelTagline=document.getElementById('panel-tagline');
+const panelDesc  = document.getElementById('panel-desc');
+
+function openPartnerPanel(data) {
+  if (!panel) return;
+  panelRegion.textContent  = data.region;
+  panelName.textContent    = data.name;
+  panelTagline.textContent = data.tagline;
+  panelDesc.textContent    = data.desc;
+  panel.removeAttribute('hidden');
+  // Force reflow for CSS transition
+  panel.offsetHeight; // eslint-disable-line
+  panel.classList.add('open');
+  panel.setAttribute('aria-hidden', 'false');
+  panelClose.focus();
+}
+
+function closePartnerPanel() {
+  if (!panel) return;
+  panel.classList.remove('open');
+  panel.setAttribute('aria-hidden', 'true');
+  // Hide after transition
+  panel.addEventListener('transitionend', () => {
+    if (!panel.classList.contains('open')) panel.setAttribute('hidden', '');
+  }, { once: true });
+}
+
+if (panelClose) panelClose.addEventListener('click', closePartnerPanel);
+
+document.querySelectorAll('.pcard').forEach((card) => {
+  const activate = () => openPartnerPanel({
+    region:  card.dataset.region,
+    name:    card.dataset.name,
+    tagline: card.dataset.tagline,
+    desc:    card.dataset.desc,
+  });
+
+  card.addEventListener('click', activate);
+  card.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(); }
   });
 });
 
 /* ============================================================
-   PARTNER FLOATING CARDS — expand/collapse
+   GRANTS ACCORDION (smooth custom)
    ============================================================ */
-const partnerCards = document.querySelectorAll('.partner-float');
+document.querySelectorAll('.gstep-toggle').forEach((toggle) => {
+  toggle.addEventListener('click', () => {
+    const step    = toggle.closest('.gstep');
+    const bodyEl  = toggle.nextElementSibling; // .gstep-body
+    const isOpen  = step.classList.contains('is-open');
 
-partnerCards.forEach((card) => {
-  card.addEventListener('click', () => {
-    const isOpen = card.classList.contains('open');
     // Close all
-    partnerCards.forEach((c) => c.classList.remove('open'));
-    // Open clicked (toggle)
-    if (!isOpen) card.classList.add('open');
+    document.querySelectorAll('.gstep').forEach((s) => {
+      s.classList.remove('is-open');
+      s.querySelector('.gstep-toggle').setAttribute('aria-expanded', 'false');
+      const b = s.querySelector('.gstep-body');
+      b.setAttribute('data-open', 'false');
+    });
+
+    // Open this one (toggle)
+    if (!isOpen) {
+      step.classList.add('is-open');
+      toggle.setAttribute('aria-expanded', 'true');
+      bodyEl.setAttribute('data-open', 'true');
+      bodyEl.removeAttribute('hidden');
+    }
   });
+});
+
+// Wrap inner content for padding without affecting max-height transition
+document.querySelectorAll('.gstep-body').forEach((body) => {
+  const inner = document.createElement('div');
+  inner.className = 'gstep-body-inner';
+  while (body.firstChild) inner.appendChild(body.firstChild);
+  body.appendChild(inner);
 });
 
 /* ============================================================
    NEWS FILTER TABS
    ============================================================ */
-const newsTabs  = document.querySelectorAll('.news-tab');
-const newsCards = document.querySelectorAll('.news-card');
+const ntabs     = document.querySelectorAll('.ntab');
+const newsCards = document.querySelectorAll('.ncard');
 
-newsTabs.forEach((tab) => {
+ntabs.forEach((tab) => {
   tab.addEventListener('click', () => {
     const filter = tab.dataset.filter;
-    newsTabs.forEach((t) => {
+    ntabs.forEach((t) => {
       t.classList.remove('active');
       t.setAttribute('aria-selected', 'false');
     });
     tab.classList.add('active');
     tab.setAttribute('aria-selected', 'true');
-
     newsCards.forEach((card) => {
-      const cat = card.dataset.category;
-      const show = filter === 'all' || cat === filter;
+      const show = filter === 'all' || card.dataset.cat === filter;
       card.classList.toggle('hidden', !show);
     });
   });
 });
 
 /* ============================================================
-   CONTACT FORM — basic validation + feedback
+   CONTACT FORM
    ============================================================ */
-document.getElementById('contact-form').addEventListener('submit', (e) => {
-  e.preventDefault();
-  const btn = e.target.querySelector('.form-submit');
-  btn.textContent = 'Message sent ✓';
-  btn.style.background = 'rgba(34,197,94,0.2)';
-  btn.style.border = '1px solid rgba(34,197,94,0.4)';
-  btn.style.color = '#22c55e';
-  btn.disabled = true;
-  setTimeout(() => {
-    btn.textContent = 'Send message';
-    btn.style = '';
-    btn.disabled = false;
-    e.target.reset();
-  }, 4000);
-});
+const form      = document.getElementById('contact-form');
+const formError = document.getElementById('form-error');
+
+if (form) {
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const btn = form.querySelector('.form-submit');
+
+    // Basic validation
+    const required = form.querySelectorAll('[required]');
+    let valid = true;
+    required.forEach((el) => { if (!el.value.trim()) valid = false; });
+
+    if (!valid) {
+      if (formError) {
+        formError.textContent = 'Please fill in all required fields.';
+        formError.removeAttribute('hidden');
+        formError.focus();
+      }
+      return;
+    }
+    if (formError) formError.setAttribute('hidden', '');
+
+    btn.textContent = 'Message sent ✓';
+    btn.style.cssText = 'background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.4);color:#22c55e;';
+    btn.setAttribute('aria-label', 'Message sent successfully');
+    btn.disabled = true;
+
+    setTimeout(() => {
+      btn.textContent = 'Send message';
+      btn.style = '';
+      btn.removeAttribute('aria-label');
+      btn.disabled = false;
+      form.reset();
+    }, 5000);
+  });
+}
 
 /* ============================================================
-   HERO — parallax glow
+   HERO PARALLAX
    ============================================================ */
 const heroGlow = document.querySelector('.hero-glow');
-if (heroGlow) {
+if (heroGlow && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   window.addEventListener('scroll', () => {
-    heroGlow.style.transform = `translateY(${window.scrollY * 0.25}px)`;
+    heroGlow.style.transform = `translateY(${window.scrollY * 0.22}px)`;
   }, { passive: true });
 }

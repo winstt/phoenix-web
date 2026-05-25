@@ -11,48 +11,103 @@
 </head>
 <body>
 
-  <!-- ===================== SEARCH OVERLAY ===================== -->
-  <div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="Search">
-    <div class="search-inner">
-      <button class="search-close" id="search-close" aria-label="Close search">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <path d="M2 2l16 16M18 2L2 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-      </button>
-      <input class="search-input" id="search-input" type="text" placeholder="Search anything…" autocomplete="off" />
-      <div class="search-results" id="search-results"></div>
-    </div>
-  </div>
+  <!-- ===================== SKIP LINK ===================== -->
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- ===================== PARTNER PANEL (fixed bottom-right) ===================== -->
+  <aside id="partner-panel" class="partner-panel" role="dialog" aria-modal="false"
+         aria-labelledby="panel-name" hidden>
+    <button class="panel-close" id="panel-close" aria-label="Close partner details">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+        <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <span class="panel-region" id="panel-region"></span>
+    <h3 class="panel-name"    id="panel-name"></h3>
+    <p  class="panel-tagline" id="panel-tagline"></p>
+    <p  class="panel-desc"    id="panel-desc"></p>
+    <a  class="panel-cta"     href="#network">View all partners &uarr;</a>
+  </aside>
 
   <!-- ===================== HEADER ===================== -->
   <header class="site-header" id="site-header">
-    <a href="#about" class="btn-join">Join our community</a>
+
+    <a href="#about" class="header-logo-link" aria-label="The Phoenix Community Trust — go to top">
+      <img src="assets/images/logo-full.png" alt="The Phoenix Community Trust" class="header-logo" />
+    </a>
 
     <nav class="header-nav" id="main-nav" aria-label="Primary navigation">
-      <a href="#about"        class="nav-link" data-section="about">About Us</a>
-      <a href="#impact"       class="nav-link" data-section="impact">Our Impact</a>
+      <a href="#about"         class="nav-link" data-section="about">About Us</a>
+      <a href="#impact"        class="nav-link" data-section="impact">Our Impact</a>
       <a href="#where-we-work" class="nav-link" data-section="where-we-work">Where We Work</a>
-      <a href="#network"      class="nav-link" data-section="network">Network</a>
-      <a href="#grants"       class="nav-link" data-section="grants">Grants</a>
-      <a href="#news"         class="nav-link" data-section="news">News</a>
-      <a href="#contact"      class="nav-link" data-section="contact">Contact</a>
+      <a href="#network"       class="nav-link" data-section="network">Network</a>
+      <a href="#grants"        class="nav-link" data-section="grants">Grants</a>
+      <a href="#news"          class="nav-link" data-section="news">News</a>
+      <a href="#contact"       class="nav-link" data-section="contact">Contact</a>
     </nav>
 
     <div class="header-right">
-      <button class="icon-btn" id="search-btn" aria-label="Search">
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-          <circle cx="7.5" cy="7.5" r="5.5" stroke="currentColor" stroke-width="1.8"/>
-          <path d="M12 12l4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+
+      <!-- Persistent inline search -->
+      <div class="header-search" id="header-search" role="search">
+        <svg class="h-search-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M9.5 9.5L13 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
         </svg>
+        <label for="hsi" class="sr-only">Search site content</label>
+        <input type="search" id="hsi" class="h-search-input" placeholder="Search…"
+               autocomplete="off" aria-expanded="false" aria-haspopup="listbox"
+               aria-autocomplete="list" aria-controls="hsd" />
+        <div id="hsd" class="h-search-dropdown" role="listbox" aria-label="Search results" hidden></div>
+      </div>
+
+      <!-- Social icons (desktop) -->
+      <div class="header-socials" aria-label="Follow us on social media">
+        <a href="#" class="h-social" aria-label="Instagram" rel="noopener">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <rect x="2" y="2" width="20" height="20" rx="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+        <a href="#" class="h-social" aria-label="Facebook" rel="noopener">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+          </svg>
+        </a>
+        <a href="#" class="h-social" aria-label="YouTube" rel="noopener">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/>
+            <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+        <a href="#" class="h-social" aria-label="X (Twitter)" rel="noopener">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M4 4l16 16M20 4L4 20"/>
+          </svg>
+        </a>
+        <a href="#" class="h-social" aria-label="LinkedIn" rel="noopener">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/>
+            <rect x="2" y="9" width="4" height="12"/>
+            <circle cx="4" cy="4" r="2"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Hamburger (mobile) -->
+      <button class="hamburger" id="hamburger"
+              aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
       </button>
-      <button class="hamburger" id="hamburger" aria-label="Open menu">
-        <span></span><span></span><span></span>
-      </button>
+
     </div>
   </header>
 
-  <!-- Mobile nav -->
-  <div class="mobile-nav" id="mobile-nav">
+  <!-- ===================== MOBILE NAV ===================== -->
+  <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" aria-hidden="true">
     <button class="mobile-close" id="mobile-close" aria-label="Close menu">&times;</button>
     <a href="#about"         class="mobile-link">About Us</a>
     <a href="#impact"        class="mobile-link">Our Impact</a>
@@ -61,478 +116,576 @@
     <a href="#grants"        class="mobile-link">Grants</a>
     <a href="#news"          class="mobile-link">News</a>
     <a href="#contact"       class="mobile-link">Contact</a>
-    <a href="#about" class="btn-join" style="margin-top:24px;text-align:center;">Join our community</a>
-  </div>
-  <div class="nav-overlay" id="nav-overlay"></div>
 
-  <!-- ===================== HERO / ABOUT ===================== -->
-  <section class="hero" id="about" data-label="About Us">
-    <div class="hero-glow"></div>
-    <div class="hero-content">
-      <img src="assets/images/logo-flame.png" alt="Phoenix flame" class="hero-flame reveal-up" />
-      <img src="assets/images/logo-text.png"  alt="The Phoenix Community Trust" class="hero-wordmark reveal-up" style="--delay:0.15s" />
-      <p class="hero-sub reveal-up" style="--delay:0.28s">
-        A Global Majority movement for funding justice and systems change —<br>
-        redistributing power and resources to communities across the UK.
-      </p>
-      <a href="#impact" class="hero-cta reveal-up" style="--delay:0.38s">
-        Explore our work
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <path d="M8 2v12M2 8l6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <div class="mobile-nav-socials" aria-label="Social media">
+      <a href="#" class="mob-social" aria-label="Instagram" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <rect x="2" y="2" width="20" height="20" rx="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+        </svg>
+      </a>
+      <a href="#" class="mob-social" aria-label="Facebook" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+        </svg>
+      </a>
+      <a href="#" class="mob-social" aria-label="YouTube" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/>
+          <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/>
+        </svg>
+      </a>
+      <a href="#" class="mob-social" aria-label="X (Twitter)" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M4 4l16 16M20 4L4 20"/>
+        </svg>
+      </a>
+      <a href="#" class="mob-social" aria-label="LinkedIn" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/>
+          <rect x="2" y="9" width="4" height="12"/>
+          <circle cx="4" cy="4" r="2"/>
+        </svg>
+      </a>
+      <a href="#" class="mob-social" aria-label="Bluesky" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.204-.659-.299-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8z"/>
         </svg>
       </a>
     </div>
-  </section>
+  </nav>
+  <div class="nav-overlay" id="nav-overlay" aria-hidden="true"></div>
 
-  <!-- ===================== OUR IMPACT ===================== -->
-  <section class="section" id="impact" data-label="Our Impact">
-    <div class="container center">
-      <span class="eyebrow reveal-up">Our Impact</span>
-      <h2 class="section-h reveal-up" style="--delay:0.08s">
-        Uniting people and<br>organisations across the UK.
-      </h2>
-      <p class="section-body reveal-up" style="--delay:0.16s">
-        We link communities and leaders across the UK to amplify collective strength — championing the leadership and innovation already thriving within Global Majority communities nationwide.
-      </p>
+  <!-- ===================== MAIN CONTENT ===================== -->
+  <main id="main-content" tabindex="-1">
 
-      <div class="stats-grid">
-        <div class="stat-card reveal-up" style="--delay:0.0s">
-          <span class="stat-n gradient-text" data-count="9" data-suffix="">9</span>
-          <span class="stat-l">regions across the UK</span>
+    <!-- ---- HERO / ABOUT ---- -->
+    <section class="hero" id="about" aria-labelledby="hero-heading">
+      <div class="hero-glow" aria-hidden="true"></div>
+      <h1 class="sr-only" id="hero-heading">The Phoenix Community Trust</h1>
+
+      <div class="hero-content">
+        <!-- Inline SVG flame (colour-accurate, transparent bg) -->
+        <div class="hero-flame reveal-up" aria-hidden="true">
+          <svg viewBox="0 0 260 340" xmlns="http://www.w3.org/2000/svg" class="flame-svg">
+            <defs>
+              <linearGradient id="fg1" x1="0%" y1="100%" x2="100%" y2="0%">
+                <stop offset="0%"   stop-color="#F5A623"/>
+                <stop offset="50%"  stop-color="#E85D04"/>
+                <stop offset="100%" stop-color="#C9184A"/>
+              </linearGradient>
+              <linearGradient id="fg2" x1="0%" y1="100%" x2="80%" y2="0%">
+                <stop offset="0%"   stop-color="#FFBA08"/>
+                <stop offset="60%"  stop-color="#DC2F02"/>
+                <stop offset="100%" stop-color="#9D0208"/>
+              </linearGradient>
+              <linearGradient id="fg3" x1="20%" y1="100%" x2="100%" y2="0%">
+                <stop offset="0%"   stop-color="#F48C06"/>
+                <stop offset="100%" stop-color="#7B2D8B"/>
+              </linearGradient>
+            </defs>
+            <path d="M130 10C150 60 200 80 210 130C225 190 200 240 170 265C190 230 185 195 165 175C175 210 160 245 130 265C100 245 85 210 95 175C75 195 70 230 90 265C60 240 35 190 50 130C60 80 110 60 130 10Z" fill="url(#fg1)"/>
+            <path d="M130 60C145 95 175 110 180 145C188 185 172 220 155 240C168 215 163 188 148 172C155 200 145 228 130 242C115 228 105 200 112 172C97 188 92 215 105 240C88 220 72 185 80 145C85 110 115 95 130 60Z" fill="url(#fg2)"/>
+            <path d="M110 90C105 130 100 170 108 200C100 175 98 145 110 90Z" fill="rgba(0,0,0,0.22)"/>
+            <path d="M148 95C153 135 155 175 148 205C156 180 158 148 148 95Z" fill="rgba(0,0,0,0.18)"/>
+            <path d="M130 10C135 35 145 55 150 75C140 55 130 30 130 10Z" fill="url(#fg3)"/>
+            <path d="M90 265C80 280 85 305 100 315C88 300 85 280 95 265Z" fill="url(#fg2)"/>
+            <path d="M170 265C180 280 175 305 160 315C172 300 175 280 165 265Z" fill="url(#fg1)"/>
+            <path d="M95 305C105 330 125 338 130 340C135 338 155 330 165 305C150 320 130 325 130 325C130 325 110 320 95 305Z" fill="url(#fg1)"/>
+          </svg>
         </div>
-        <div class="stat-card reveal-up" style="--delay:0.08s">
-          <span class="stat-n gradient-text" data-count="100" data-suffix="+">100+</span>
-          <span class="stat-l">community organisations</span>
-        </div>
-        <div class="stat-card reveal-up" style="--delay:0.16s">
-          <span class="stat-n gradient-text" data-prefix="£" data-count="4" data-suffix="M">£4M</span>
-          <span class="stat-l">upcoming grants round</span>
-        </div>
-        <div class="stat-card reveal-up" style="--delay:0.24s">
-          <span class="stat-n gradient-text" data-count="2026" data-suffix="">2026</span>
-          <span class="stat-l">strategic development opportunity</span>
+
+        <img src="assets/images/logo-text.png" alt="The Phoenix Community Trust"
+             class="hero-wordmark reveal-up" style="--delay:0.15s" />
+
+        <p class="hero-sub reveal-up" style="--delay:0.26s">
+          A Global Majority movement for funding justice and systems change across the UK.
+        </p>
+
+        <a href="#impact" class="hero-cta reveal-up" style="--delay:0.36s">
+          Explore our work
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M8 2v12M2 8l6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- ---- OUR IMPACT ---- -->
+    <section class="section" id="impact" aria-labelledby="impact-h">
+      <div class="container center">
+        <span class="eyebrow reveal-up">Our Impact</span>
+        <h2 class="section-h reveal-up" id="impact-h" style="--delay:0.08s">
+          Uniting people and<br>organisations across the UK.
+        </h2>
+        <p class="section-body reveal-up" style="--delay:0.16s">
+          We link communities and leaders across the UK to amplify collective strength — championing the leadership and innovation already thriving within Global Majority communities nationwide.
+        </p>
+
+        <div class="stats-grid">
+          <div class="stat-card reveal-up" style="--delay:0.00s">
+            <span class="stat-n gradient-text" data-count="9"    data-suffix="">9</span>
+            <span class="stat-l">regions across the UK</span>
+          </div>
+          <div class="stat-card reveal-up" style="--delay:0.08s">
+            <span class="stat-n gradient-text" data-count="100"  data-suffix="+">100+</span>
+            <span class="stat-l">community organisations</span>
+          </div>
+          <div class="stat-card reveal-up" style="--delay:0.16s">
+            <span class="stat-n gradient-text" data-prefix="£"   data-count="4" data-suffix="M">£4M</span>
+            <span class="stat-l">upcoming grants round</span>
+          </div>
+          <div class="stat-card reveal-up" style="--delay:0.24s">
+            <span class="stat-n gradient-text" data-count="2026" data-suffix="">2026</span>
+            <span class="stat-l">strategic development opportunity</span>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ===================== WHERE WE WORK ===================== -->
-  <section class="section" id="where-we-work" data-label="Where We Work">
-    <div class="container center">
-      <span class="eyebrow reveal-up">Where We Work</span>
-      <h2 class="section-h reveal-up" style="--delay:0.08s">Our current active regions</h2>
+    <!-- ---- WHERE WE WORK — UK MAP ---- -->
+    <section class="section" id="where-we-work" aria-labelledby="wwh-h">
+      <div class="container center">
+        <span class="eyebrow reveal-up">Where We Work</span>
+        <h2 class="section-h reveal-up" id="wwh-h" style="--delay:0.08s">Our current active regions</h2>
 
-      <div class="map-wrap reveal-up" style="--delay:0.18s">
-        <!-- England SVG Map -->
-        <svg class="england-svg" viewBox="0 0 250 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Map of England showing active regions">
-          <defs>
-            <radialGradient id="dotGrad" cx="50%" cy="50%" r="50%">
-              <stop offset="0%"   stop-color="#F5A623"/>
-              <stop offset="100%" stop-color="#C9184A"/>
-            </radialGradient>
-            <filter id="dotGlow">
-              <feGaussianBlur stdDeviation="3" result="blur"/>
-              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
-          </defs>
+        <div class="map-wrap reveal-up" style="--delay:0.18s">
+          <!-- UK Map + interactive dot overlay -->
+          <div class="map-container" role="img" aria-label="Map of England showing 9 active regions">
+            <img src="assets/images/uk-map.svg" alt="" class="uk-map-bg" aria-hidden="true" />
 
-          <!-- England outline -->
-          <path class="england-outline" d="
-            M 150,8 C 165,5 180,8 192,18
-            L 205,32 L 213,52 L 218,74 L 222,96
-            L 225,112 L 215,115 L 220,133
-            L 234,150 L 231,170 L 220,186
-            L 213,202 L 225,220 L 218,242
-            L 204,256 L 184,263 L 162,264
-            L 138,263 L 115,263 L 92,268
-            L 69,278 L 46,292 L 24,308
-            L 10,322 L 15,308 L 22,292
-            L 17,272 L 8,252 L 14,232
-            L 17,212 L 20,192 L 15,172
-            L 9,152 L 12,132 L 21,112
-            L 25,92 L 27,72 L 36,52
-            L 50,36 L 66,22 L 86,12 L 110,6 Z
-          "/>
+            <!-- Dots overlay — same viewBox as the UK SVG -->
+            <svg class="map-dots-svg" viewBox="0 0 816.4 1080"
+                 xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+              <defs>
+                <radialGradient id="dg" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%"   stop-color="#F5A623"/>
+                  <stop offset="100%" stop-color="#C9184A"/>
+                </radialGradient>
+                <filter id="dglow" x="-50%" y="-50%" width="200%" height="200%">
+                  <feGaussianBlur stdDeviation="4" result="b"/>
+                  <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+              </defs>
 
-          <!-- Region dots -->
-          <g class="region-dot" data-id="ne-cumbria"  data-name="North East &amp; Cumbria">
-            <circle class="dot-pulse" cx="152" cy="52"  r="10"/>
-            <circle class="dot-core"  cx="152" cy="52"  r="6" fill="url(#dotGrad)" filter="url(#dotGlow)"/>
-          </g>
-          <g class="region-dot" data-id="nw"          data-name="North West">
-            <circle class="dot-pulse" cx="72"  cy="90"  r="10"/>
-            <circle class="dot-core"  cx="72"  cy="90"  r="6" fill="url(#dotGrad)" filter="url(#dotGlow)"/>
-          </g>
-          <g class="region-dot" data-id="yorkshire"   data-name="Yorkshire &amp; Humber">
-            <circle class="dot-pulse" cx="184" cy="92"  r="10"/>
-            <circle class="dot-core"  cx="184" cy="92"  r="6" fill="url(#dotGrad)" filter="url(#dotGlow)"/>
-          </g>
-          <g class="region-dot" data-id="e-midlands"  data-name="East Midlands">
-            <circle class="dot-pulse" cx="183" cy="152" r="10"/>
-            <circle class="dot-core"  cx="183" cy="152" r="6" fill="url(#dotGrad)" filter="url(#dotGlow)"/>
-          </g>
-          <g class="region-dot" data-id="w-midlands"  data-name="West Midlands">
-            <circle class="dot-pulse" cx="130" cy="163" r="10"/>
-            <circle class="dot-core"  cx="130" cy="163" r="6" fill="url(#dotGrad)" filter="url(#dotGlow)"/>
-          </g>
-          <g class="region-dot" data-id="east"        data-name="East of England">
-            <circle class="dot-pulse" cx="218" cy="162" r="10"/>
-            <circle class="dot-core"  cx="218" cy="162" r="6" fill="url(#dotGrad)" filter="url(#dotGlow)"/>
-          </g>
-          <g class="region-dot" data-id="london"      data-name="Greater London">
-            <circle class="dot-pulse" cx="200" cy="212" r="10"/>
-            <circle class="dot-core"  cx="200" cy="212" r="6" fill="url(#dotGrad)" filter="url(#dotGlow)"/>
-          </g>
-          <g class="region-dot" data-id="se"          data-name="South East">
-            <circle class="dot-pulse" cx="200" cy="248" r="10"/>
-            <circle class="dot-core"  cx="200" cy="248" r="6" fill="url(#dotGrad)" filter="url(#dotGlow)"/>
-          </g>
-          <g class="region-dot" data-id="sw"          data-name="South West">
-            <circle class="dot-pulse" cx="70"  cy="260" r="10"/>
-            <circle class="dot-core"  cx="70"  cy="260" r="6" fill="url(#dotGrad)" filter="url(#dotGlow)"/>
-          </g>
-        </svg>
-
-        <!-- Region tooltip -->
-        <div class="map-tooltip" id="map-tooltip"></div>
-
-        <!-- Region legend -->
-        <ul class="map-legend">
-          <li><span class="legend-dot"></span>North East &amp; Cumbria <span class="active-pill">Active</span></li>
-          <li><span class="legend-dot"></span>North West <span class="active-pill">Active</span></li>
-          <li><span class="legend-dot"></span>Yorkshire &amp; Humber <span class="active-pill">Active</span></li>
-          <li><span class="legend-dot"></span>East Midlands <span class="active-pill">Active</span></li>
-          <li><span class="legend-dot"></span>West Midlands <span class="active-pill">Active</span></li>
-          <li><span class="legend-dot"></span>East of England <span class="active-pill">Active</span></li>
-          <li><span class="legend-dot"></span>Greater London <span class="active-pill">Active</span></li>
-          <li><span class="legend-dot"></span>South East <span class="active-pill">Active</span></li>
-          <li><span class="legend-dot"></span>South West <span class="active-pill">Active</span></li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== NETWORK ===================== -->
-  <section class="section" id="network" data-label="Our Network">
-    <div class="container center">
-      <span class="eyebrow reveal-up">Our Network</span>
-      <h2 class="section-h reveal-up" style="--delay:0.08s">Our current partners</h2>
-      <p class="section-body reveal-up" style="--delay:0.16s">Click any card to learn more about our regional partners.</p>
-
-      <div class="partners-float-grid">
-
-        <div class="partner-float reveal-up" style="--delay:0.0s; --rot:-2deg; --float-dur:7s; --float-d:0s" data-partner="0">
-          <div class="pf-front">
-            <span class="pf-region">North East &amp; Cumbria</span>
-            <h3 class="pf-name">Anti Racist Cumbria</h3>
-            <span class="pf-open-hint">tap to expand</span>
-          </div>
-          <div class="pf-detail">
-            <p class="pf-tagline">DISMANTLING RACISM, ADVANCING JUSTICE.</p>
-            <p class="pf-desc">Anti Racist Cumbria is a community-led network building collective power across Cumbria.</p>
-          </div>
-        </div>
-
-        <div class="partner-float reveal-up" style="--delay:0.05s; --rot:1.5deg; --float-dur:6s; --float-d:-1.5s" data-partner="1">
-          <div class="pf-front">
-            <span class="pf-region">North West</span>
-            <h3 class="pf-name">Inclusive North</h3>
-            <span class="pf-open-hint">tap to expand</span>
-          </div>
-          <div class="pf-detail">
-            <p class="pf-tagline">CHAMPIONING RACIAL UNITY.</p>
-            <p class="pf-desc">Inclusive North drives change for Global Majority communities across Lancashire through research, policy innovation and investment.</p>
-          </div>
-        </div>
-
-        <div class="partner-float reveal-up" style="--delay:0.10s; --rot:-1deg; --float-dur:8s; --float-d:-3s" data-partner="2">
-          <div class="pf-front">
-            <span class="pf-region">Yorkshire &amp; Humber</span>
-            <h3 class="pf-name">Impact Hub Yorkshire</h3>
-            <span class="pf-open-hint">tap to expand</span>
-          </div>
-          <div class="pf-detail">
-            <p class="pf-tagline">POWERING POSITIVE CHANGE IN YORKSHIRE.</p>
-            <p class="pf-desc">A collaborative community connecting entrepreneurs, innovators, and organisations driving positive social and environmental change.</p>
-          </div>
-        </div>
-
-        <div class="partner-float reveal-up" style="--delay:0.15s; --rot:2deg; --float-dur:6.5s; --float-d:-2s" data-partner="3">
-          <div class="pf-front">
-            <span class="pf-region">Greater London &amp; South East</span>
-            <h3 class="pf-name">The Ubele Initiative</h3>
-            <span class="pf-open-hint">tap to expand</span>
-          </div>
-          <div class="pf-detail">
-            <p class="pf-tagline">ADVOCATING FOR EQUITY &amp; JUSTICE.</p>
-            <p class="pf-desc">The Ubele Initiative empowers Global Majority communities in the UK to act as catalysts for social and economic change.</p>
-          </div>
-        </div>
-
-        <div class="partner-float reveal-up" style="--delay:0.20s; --rot:-1.5deg; --float-dur:7.5s; --float-d:-4s" data-partner="4">
-          <div class="pf-front">
-            <span class="pf-region">South West</span>
-            <h3 class="pf-name">Black South West Network</h3>
-            <span class="pf-open-hint">tap to expand</span>
-          </div>
-          <div class="pf-detail">
-            <p class="pf-tagline">BUILDING POWER. CREATING CHANGE.</p>
-            <p class="pf-desc">Works across the South West to advance racial justice, amplify Black voices, and build lasting opportunities for equity.</p>
-          </div>
-        </div>
-
-        <div class="partner-float reveal-up" style="--delay:0.25s; --rot:1deg; --float-dur:9s; --float-d:-2.5s" data-partner="5">
-          <div class="pf-front">
-            <span class="pf-region">East &amp; West Midlands</span>
-            <h3 class="pf-name">South Asian Health Action</h3>
-            <span class="pf-open-hint">tap to expand</span>
-          </div>
-          <div class="pf-detail">
-            <p class="pf-tagline">IMPROVING HEALTH. ADVANCING EQUITY.</p>
-            <p class="pf-desc">Works to improve health outcomes and reduce inequalities for South Asian communities through research, advocacy, and action.</p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== GRANTS ===================== -->
-  <section class="section grants-section" id="grants" data-label="Grants">
-    <div class="container center">
-      <span class="eyebrow reveal-up">Grants</span>
-      <h2 class="section-h reveal-up" style="--delay:0.08s">
-        Funding <span class="gradient-text">Justice</span> in Action.
-      </h2>
-      <p class="section-body reveal-up" style="--delay:0.16s">
-        The Phoenix Community Trust is committed to redistributing power and resources to Global Majority communities across the UK — through grants, investment, and long-term community infrastructure.
-      </p>
-
-      <div class="grants-quote reveal-up" style="--delay:0.24s">
-        By investing in Global Majority communities, we dismantle structural racism and strengthen the collective power of our communities.
-      </div>
-
-      <!-- Expandable grant steps -->
-      <div class="grant-steps reveal-up" style="--delay:0.30s">
-        <details class="grant-step">
-          <summary>
-            <span class="step-num gradient-text">01</span>
-            <span class="step-title">Explore our latest grants</span>
-            <svg class="chevron" width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <!-- North East & Cumbria -->
+              <g class="rdot" tabindex="0" role="button"
+                 data-name="North East &amp; Cumbria" data-partner="Anti Racist Cumbria"
+                 aria-label="North East and Cumbria — Active region, partner: Anti Racist Cumbria">
+                <circle class="dp" cx="440" cy="490" r="18"/>
+                <circle class="dc" cx="440" cy="490" r="8" fill="url(#dg)" filter="url(#dglow)"/>
+              </g>
+              <!-- North West -->
+              <g class="rdot" tabindex="0" role="button"
+                 data-name="North West" data-partner="Inclusive North"
+                 aria-label="North West — Active region, partner: Inclusive North">
+                <circle class="dp" cx="342" cy="543" r="18"/>
+                <circle class="dc" cx="342" cy="543" r="8" fill="url(#dg)" filter="url(#dglow)"/>
+              </g>
+              <!-- Yorkshire & Humber -->
+              <g class="rdot" tabindex="0" role="button"
+                 data-name="Yorkshire &amp; Humber" data-partner="Impact Hub Yorkshire"
+                 aria-label="Yorkshire and Humber — Active region, partner: Impact Hub Yorkshire">
+                <circle class="dp" cx="472" cy="540" r="18"/>
+                <circle class="dc" cx="472" cy="540" r="8" fill="url(#dg)" filter="url(#dglow)"/>
+              </g>
+              <!-- East Midlands -->
+              <g class="rdot" tabindex="0" role="button"
+                 data-name="East Midlands" data-partner=""
+                 aria-label="East Midlands — Active region">
+                <circle class="dp" cx="462" cy="648" r="18"/>
+                <circle class="dc" cx="462" cy="648" r="8" fill="url(#dg)" filter="url(#dglow)"/>
+              </g>
+              <!-- West Midlands -->
+              <g class="rdot" tabindex="0" role="button"
+                 data-name="West Midlands" data-partner="South Asian Health Action"
+                 aria-label="West Midlands — Active region, partner: South Asian Health Action">
+                <circle class="dp" cx="392" cy="662" r="18"/>
+                <circle class="dc" cx="392" cy="662" r="8" fill="url(#dg)" filter="url(#dglow)"/>
+              </g>
+              <!-- East of England -->
+              <g class="rdot" tabindex="0" role="button"
+                 data-name="East of England" data-partner="The Ubele Initiative"
+                 aria-label="East of England — Active region, partner: The Ubele Initiative">
+                <circle class="dp" cx="548" cy="648" r="18"/>
+                <circle class="dc" cx="548" cy="648" r="8" fill="url(#dg)" filter="url(#dglow)"/>
+              </g>
+              <!-- Greater London -->
+              <g class="rdot" tabindex="0" role="button"
+                 data-name="Greater London" data-partner="The Ubele Initiative"
+                 aria-label="Greater London — Active region, partner: The Ubele Initiative">
+                <circle class="dp" cx="518" cy="758" r="18"/>
+                <circle class="dc" cx="518" cy="758" r="8" fill="url(#dg)" filter="url(#dglow)"/>
+              </g>
+              <!-- South East -->
+              <g class="rdot" tabindex="0" role="button"
+                 data-name="South East" data-partner=""
+                 aria-label="South East — Active region">
+                <circle class="dp" cx="535" cy="808" r="18"/>
+                <circle class="dc" cx="535" cy="808" r="8" fill="url(#dg)" filter="url(#dglow)"/>
+              </g>
+              <!-- South West -->
+              <g class="rdot" tabindex="0" role="button"
+                 data-name="South West" data-partner="Black South West Network"
+                 aria-label="South West — Active region, partner: Black South West Network">
+                <circle class="dp" cx="290" cy="832" r="18"/>
+                <circle class="dc" cx="290" cy="832" r="8" fill="url(#dg)" filter="url(#dglow)"/>
+              </g>
             </svg>
-          </summary>
-          <div class="step-body">
-            <p>Be part of a national movement strengthening leadership and collaboration across the UK. Register your interest to receive updates on upcoming grants, events, and opportunities to engage with The Phoenix Community Trust.</p>
-            <a href="#contact" class="step-cta">Register your interest &rarr;</a>
-          </div>
-        </details>
 
-        <details class="grant-step">
-          <summary>
-            <span class="step-num gradient-text">02</span>
-            <span class="step-title">£4M National Lottery collaboration</span>
-            <svg class="chevron" width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </summary>
-          <div class="step-body">
-            <p>An upcoming £4M grants round in collaboration with The National Lottery Community Fund. This represents a significant investment in Global Majority communities across all 9 active UK regions.</p>
-          </div>
-        </details>
-
-        <details class="grant-step">
-          <summary>
-            <span class="step-num gradient-text">03</span>
-            <span class="step-title">2026 Strategic development</span>
-            <svg class="chevron" width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </summary>
-          <div class="step-body">
-            <p>In 2026, communities will have the opportunity to shape Phoenix's strategic direction. This is your chance to influence how resources are distributed and how the movement grows.</p>
-          </div>
-        </details>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== NEWS ===================== -->
-  <section class="section" id="news" data-label="News">
-    <div class="container center">
-      <span class="eyebrow reveal-up">News</span>
-      <h2 class="section-h reveal-up" style="--delay:0.08s">
-        News &amp; <span class="gradient-text">Updates</span>
-      </h2>
-      <p class="section-body reveal-up" style="--delay:0.16s">
-        Stories, updates and insights from our work — and from the communities and leaders at the heart of this movement.
-      </p>
-
-      <!-- Filter tabs -->
-      <div class="news-tabs reveal-up" style="--delay:0.22s" role="tablist">
-        <button class="news-tab active" data-filter="all"           role="tab" aria-selected="true">All</button>
-        <button class="news-tab"        data-filter="announcements" role="tab">Announcements</button>
-        <button class="news-tab"        data-filter="community"     role="tab">Community</button>
-        <button class="news-tab"        data-filter="grants"        role="tab">Grants</button>
-      </div>
-
-      <!-- News grid -->
-      <div class="news-grid" id="news-grid">
-
-        <article class="news-card reveal-up" data-category="grants" style="--delay:0.0s">
-          <div class="news-img"></div>
-          <div class="news-body">
-            <span class="news-cat cat-grants">Grants</span>
-            <h3 class="news-title">2026 Grants Round – What to Expect</h3>
-            <p class="news-excerpt">Details on the first grants round partnership with The National Lottery Community Fund, opening later this year.</p>
-            <time class="news-date">May 12, 2026</time>
-          </div>
-        </article>
-
-        <article class="news-card reveal-up featured" data-category="announcements" style="--delay:0.06s">
-          <div class="news-img"></div>
-          <div class="news-body">
-            <span class="news-cat cat-announce">Announcements</span>
-            <h3 class="news-title">2026 Strategy Development</h3>
-            <p class="news-excerpt">Our strategic priorities for 2026 are taking shape. Find out how we are building the foundations for lasting systemic change across the UK.</p>
-            <time class="news-date">Apr 28, 2026</time>
-          </div>
-        </article>
-
-        <article class="news-card reveal-up" data-category="announcements" style="--delay:0.12s">
-          <div class="news-img"></div>
-          <div class="news-body">
-            <span class="news-cat cat-announce">Announcements</span>
-            <h3 class="news-title">More Updates Coming Soon</h3>
-            <p class="news-excerpt">We are building our archive of updates, stories and insights from communities across the UK. Check back soon.</p>
-            <time class="news-date">Jan 1, 2026</time>
-          </div>
-        </article>
-
-        <article class="news-card reveal-up" data-category="community" style="--delay:0.18s">
-          <div class="news-img"></div>
-          <div class="news-body">
-            <span class="news-cat cat-community">Community</span>
-            <h3 class="news-title">Cheltenham Partnership Event – Key Insights</h3>
-            <p class="news-excerpt">Reflections and outcomes from the partnership convening that shaped our strategic direction and community-led decision making, February 2026.</p>
-            <time class="news-date">Feb 14, 2026</time>
-          </div>
-        </article>
-
-      </div>
-
-      <div class="news-more reveal-up" style="--delay:0.3s">
-        <p>More stories &amp; updates coming soon</p>
-        <p class="news-more-sub">We are building our archive of updates, stories and insights from communities across the UK.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== CONTACT ===================== -->
-  <section class="section contact-section" id="contact" data-label="Contact">
-    <div class="container">
-      <div class="contact-wrap">
-
-        <!-- Left col -->
-        <div class="contact-info">
-          <span class="eyebrow reveal-up">Contact</span>
-          <h2 class="section-h reveal-up" style="--delay:0.08s">
-            Get in <span class="gradient-text">Touch.</span>
-          </h2>
-          <p class="section-body reveal-up" style="--delay:0.16s">
-            We welcome collaboration, conversation and connection. Reach out to learn more about our work and how you can be part of the movement.
-          </p>
-
-          <div class="contact-meta reveal-up" style="--delay:0.22s">
-            <div class="contact-meta-block">
-              <span class="contact-label">Email</span>
-              <a href="mailto:info@phoenix-trust.co.uk" class="contact-email">info@phoenix-trust.co.uk</a>
+            <!-- Hover data card (positioned inside map-container) -->
+            <div class="map-card" id="map-card" role="tooltip" aria-live="polite" hidden>
+              <span class="mc-active">Active</span>
+              <strong class="mc-name" id="mc-name"></strong>
+              <span class="mc-partner" id="mc-partner"></span>
+              <a class="mc-link" href="#network">View partner &rarr;</a>
             </div>
-            <div class="contact-meta-block">
-              <span class="contact-label">Follow us</span>
-              <div class="contact-socials">
-                <a href="#" class="social-btn" aria-label="Instagram">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-                </a>
-                <a href="#" class="social-btn" aria-label="Facebook">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-                </a>
-                <a href="#" class="social-btn" aria-label="YouTube">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
-                </a>
-                <a href="#" class="social-btn" aria-label="LinkedIn">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-                </a>
-                <a href="#" class="social-btn" aria-label="X / Twitter">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4l16 16M20 4L4 20"/></svg>
-                </a>
+          </div>
+
+          <!-- Accessible fallback list for screen readers -->
+          <ul class="sr-only" aria-label="Active regions">
+            <li><a href="#network">North East &amp; Cumbria — Active</a></li>
+            <li><a href="#network">North West — Active</a></li>
+            <li><a href="#network">Yorkshire &amp; Humber — Active</a></li>
+            <li><a href="#network">East Midlands — Active</a></li>
+            <li><a href="#network">West Midlands — Active</a></li>
+            <li><a href="#network">East of England — Active</a></li>
+            <li><a href="#network">Greater London — Active</a></li>
+            <li><a href="#network">South East — Active</a></li>
+            <li><a href="#network">South West — Active</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---- NETWORK ---- -->
+    <section class="section" id="network" aria-labelledby="net-h">
+      <div class="container center">
+        <span class="eyebrow reveal-up">Our Network</span>
+        <h2 class="section-h reveal-up" id="net-h" style="--delay:0.08s">Our current partners</h2>
+        <p class="section-body reveal-up" style="--delay:0.16s">
+          Click any card to learn more about our regional partners.
+        </p>
+
+        <div class="partners-grid">
+
+          <div class="pcard reveal-up" style="--delay:0.00s; --rot:-2deg; --fd:7s; --fdt:0s"
+               tabindex="0" role="button" aria-label="Anti Racist Cumbria — click for details"
+               data-region="North East &amp; Cumbria"
+               data-name="Anti Racist Cumbria"
+               data-tagline="DISMANTLING RACISM, ADVANCING JUSTICE."
+               data-desc="Anti Racist Cumbria is a community-led network building collective power across Cumbria.">
+            <span class="pc-region">North East &amp; Cumbria</span>
+            <h3 class="pc-name">Anti Racist Cumbria</h3>
+            <span class="pc-hint" aria-hidden="true">tap for details</span>
+          </div>
+
+          <div class="pcard reveal-up" style="--delay:0.05s; --rot:1.5deg; --fd:6s; --fdt:-1.5s"
+               tabindex="0" role="button" aria-label="Inclusive North — click for details"
+               data-region="North West"
+               data-name="Inclusive North"
+               data-tagline="CHAMPIONING RACIAL UNITY."
+               data-desc="Inclusive North drives change for Global Majority communities across Lancashire through research, policy innovation and investment.">
+            <span class="pc-region">North West</span>
+            <h3 class="pc-name">Inclusive North</h3>
+            <span class="pc-hint" aria-hidden="true">tap for details</span>
+          </div>
+
+          <div class="pcard reveal-up" style="--delay:0.10s; --rot:-1deg; --fd:8s; --fdt:-3s"
+               tabindex="0" role="button" aria-label="Impact Hub Yorkshire — click for details"
+               data-region="Yorkshire &amp; Humber"
+               data-name="Impact Hub Yorkshire"
+               data-tagline="POWERING POSITIVE CHANGE IN YORKSHIRE."
+               data-desc="A collaborative community connecting entrepreneurs, innovators, and organisations driving positive social and environmental change across Yorkshire.">
+            <span class="pc-region">Yorkshire &amp; Humber</span>
+            <h3 class="pc-name">Impact Hub Yorkshire</h3>
+            <span class="pc-hint" aria-hidden="true">tap for details</span>
+          </div>
+
+          <div class="pcard reveal-up" style="--delay:0.15s; --rot:2deg; --fd:6.5s; --fdt:-2s"
+               tabindex="0" role="button" aria-label="The Ubele Initiative — click for details"
+               data-region="Greater London &amp; South East"
+               data-name="The Ubele Initiative"
+               data-tagline="ADVOCATING FOR EQUITY &amp; JUSTICE."
+               data-desc="The Ubele Initiative empowers Global Majority communities in the UK to act as catalysts for social and economic change.">
+            <span class="pc-region">Greater London &amp; South East</span>
+            <h3 class="pc-name">The Ubele Initiative</h3>
+            <span class="pc-hint" aria-hidden="true">tap for details</span>
+          </div>
+
+          <div class="pcard reveal-up" style="--delay:0.20s; --rot:-1.5deg; --fd:7.5s; --fdt:-4s"
+               tabindex="0" role="button" aria-label="Black South West Network — click for details"
+               data-region="South West"
+               data-name="Black South West Network"
+               data-tagline="BUILDING POWER. CREATING CHANGE."
+               data-desc="Works across the South West to advance racial justice, amplify Black voices, and build lasting opportunities for equity.">
+            <span class="pc-region">South West</span>
+            <h3 class="pc-name">Black South West Network</h3>
+            <span class="pc-hint" aria-hidden="true">tap for details</span>
+          </div>
+
+          <div class="pcard reveal-up" style="--delay:0.25s; --rot:1deg; --fd:9s; --fdt:-2.5s"
+               tabindex="0" role="button" aria-label="South Asian Health Action — click for details"
+               data-region="East &amp; West Midlands"
+               data-name="South Asian Health Action"
+               data-tagline="IMPROVING HEALTH. ADVANCING EQUITY."
+               data-desc="Works to improve health outcomes and reduce inequalities for South Asian communities through research, advocacy, and action.">
+            <span class="pc-region">East &amp; West Midlands</span>
+            <h3 class="pc-name">South Asian Health Action</h3>
+            <span class="pc-hint" aria-hidden="true">tap for details</span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ---- GRANTS ---- -->
+    <section class="section grants-section" id="grants" aria-labelledby="grants-h">
+      <div class="container center">
+        <span class="eyebrow reveal-up">Grants</span>
+        <h2 class="section-h reveal-up" id="grants-h" style="--delay:0.08s">
+          Funding <span class="gradient-text">Justice</span> in Action.
+        </h2>
+        <p class="section-body reveal-up" style="--delay:0.16s">
+          Committed to redistributing power and resources to Global Majority communities across the UK — through grants, investment, and long-term community infrastructure.
+        </p>
+        <div class="grants-quote reveal-up" style="--delay:0.22s">
+          By investing in Global Majority communities, we dismantle structural racism and strengthen the collective power of our communities.
+        </div>
+
+        <!-- Custom smooth accordion (not <details>) -->
+        <div class="grant-steps reveal-up" style="--delay:0.30s" role="list">
+
+          <div class="gstep" role="listitem">
+            <button class="gstep-toggle" aria-expanded="false" aria-controls="gs1-body">
+              <span class="gstep-num gradient-text" aria-hidden="true">01</span>
+              <span class="gstep-title">Explore our latest grants</span>
+              <svg class="chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
+            <div class="gstep-body" id="gs1-body" role="region" aria-label="Explore our latest grants" hidden>
+              <p>Be part of a national movement strengthening leadership and collaboration across the UK. Register your interest to receive updates on upcoming grants, events, and opportunities to engage with The Phoenix Community Trust.</p>
+              <a href="#contact" class="gstep-cta">Register your interest &rarr;</a>
+            </div>
+          </div>
+
+          <div class="gstep" role="listitem">
+            <button class="gstep-toggle" aria-expanded="false" aria-controls="gs2-body">
+              <span class="gstep-num gradient-text" aria-hidden="true">02</span>
+              <span class="gstep-title">£4M National Lottery collaboration</span>
+              <svg class="chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
+            <div class="gstep-body" id="gs2-body" role="region" aria-label="National Lottery collaboration" hidden>
+              <p>An upcoming £4M grants round in collaboration with The National Lottery Community Fund — a significant investment in Global Majority communities across all 9 active UK regions.</p>
+            </div>
+          </div>
+
+          <div class="gstep" role="listitem">
+            <button class="gstep-toggle" aria-expanded="false" aria-controls="gs3-body">
+              <span class="gstep-num gradient-text" aria-hidden="true">03</span>
+              <span class="gstep-title">2026 Strategic development</span>
+              <svg class="chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
+            <div class="gstep-body" id="gs3-body" role="region" aria-label="2026 Strategic development" hidden>
+              <p>In 2026, communities will have the opportunity to shape Phoenix's strategic direction — your chance to influence how resources are distributed and how the movement grows.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ---- NEWS ---- -->
+    <section class="section" id="news" aria-labelledby="news-h">
+      <div class="container center">
+        <span class="eyebrow reveal-up">News</span>
+        <h2 class="section-h reveal-up" id="news-h" style="--delay:0.08s">
+          News &amp; <span class="gradient-text">Updates</span>
+        </h2>
+        <p class="section-body reveal-up" style="--delay:0.16s">
+          Stories, updates and insights from our work and the communities at the heart of this movement.
+        </p>
+
+        <div class="news-tabs reveal-up" style="--delay:0.22s" role="tablist" aria-label="Filter news by category">
+          <button class="ntab active" data-filter="all"           role="tab" aria-selected="true"  aria-controls="news-grid">All</button>
+          <button class="ntab"        data-filter="announcements" role="tab" aria-selected="false" aria-controls="news-grid">Announcements</button>
+          <button class="ntab"        data-filter="community"     role="tab" aria-selected="false" aria-controls="news-grid">Community</button>
+          <button class="ntab"        data-filter="grants"        role="tab" aria-selected="false" aria-controls="news-grid">Grants</button>
+        </div>
+
+        <div class="news-grid" id="news-grid" role="tabpanel" aria-live="polite" aria-label="News articles">
+
+          <a class="ncard reveal-up" href="news/grants-round.html" data-cat="grants" style="--delay:0.00s">
+            <div class="nc-img" aria-hidden="true"></div>
+            <div class="nc-body">
+              <span class="nc-cat cat-grants">Grants</span>
+              <h3 class="nc-title">2026 Grants Round – What to Expect</h3>
+              <p class="nc-exc">Details on the first grants round partnership with The National Lottery Community Fund, opening later this year.</p>
+              <time class="nc-date" datetime="2026-05-12">May 12, 2026</time>
+            </div>
+          </a>
+
+          <a class="ncard reveal-up featured" href="news/strategy.html" data-cat="announcements" style="--delay:0.06s">
+            <div class="nc-img" aria-hidden="true"></div>
+            <div class="nc-body">
+              <span class="nc-cat cat-announce">Announcements</span>
+              <h3 class="nc-title">2026 Strategy Development</h3>
+              <p class="nc-exc">Our strategic priorities for 2026 are taking shape. Find out how we are building the foundations for lasting systemic change across the UK.</p>
+              <time class="nc-date" datetime="2026-04-28">Apr 28, 2026</time>
+            </div>
+          </a>
+
+          <a class="ncard reveal-up" href="news/cheltenham.html" data-cat="community" style="--delay:0.12s">
+            <div class="nc-img" aria-hidden="true"></div>
+            <div class="nc-body">
+              <span class="nc-cat cat-community">Community</span>
+              <h3 class="nc-title">Cheltenham Partnership Event – Key Insights</h3>
+              <p class="nc-exc">Reflections and outcomes from the partnership convening that shaped our strategic direction, February 2026.</p>
+              <time class="nc-date" datetime="2026-02-14">Feb 14, 2026</time>
+            </div>
+          </a>
+
+          <a class="ncard reveal-up" href="news/updates.html" data-cat="announcements" style="--delay:0.18s">
+            <div class="nc-img" aria-hidden="true"></div>
+            <div class="nc-body">
+              <span class="nc-cat cat-announce">Announcements</span>
+              <h3 class="nc-title">More Updates Coming Soon</h3>
+              <p class="nc-exc">We are building our archive of updates, stories and insights from communities across the UK.</p>
+              <time class="nc-date" datetime="2026-01-01">Jan 1, 2026</time>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ---- JOIN OUR COMMUNITY ---- -->
+    <section class="section join-section" id="join" aria-labelledby="join-h">
+      <div class="container center">
+        <span class="eyebrow reveal-up">Be part of the movement</span>
+        <h2 class="section-h reveal-up" id="join-h" style="--delay:0.08s">
+          Join our<br><span class="gradient-text">community.</span>
+        </h2>
+        <p class="section-body reveal-up" style="--delay:0.16s">
+          The Phoenix Community Trust is more than a network — it is a movement. Whether you are a community leader, an organisation, or an individual who believes in funding justice, there is a place for you here. Together, we reshape how power and resources flow to Global Majority communities across the UK.
+        </p>
+        <a href="mailto:info@phoenix-trust.co.uk" class="btn-join reveal-up" style="--delay:0.26s">
+          Join our community
+        </a>
+      </div>
+    </section>
+
+    <!-- ---- CONTACT ---- -->
+    <section class="section contact-section" id="contact" aria-labelledby="contact-h">
+      <div class="container">
+        <div class="contact-wrap">
+
+          <div class="contact-info">
+            <span class="eyebrow reveal-up">Contact</span>
+            <h2 class="section-h reveal-up" id="contact-h" style="--delay:0.08s">
+              Get in <span class="gradient-text">Touch.</span>
+            </h2>
+            <p class="section-body reveal-up" style="--delay:0.16s" style="margin-left:0">
+              We welcome collaboration, conversation and connection. Reach out to learn more about our work and how you can be part of the movement.
+            </p>
+            <div class="contact-meta reveal-up" style="--delay:0.22s">
+              <div class="cmeta-block">
+                <span class="cmeta-label">Email</span>
+                <a href="mailto:info@phoenix-trust.co.uk" class="cmeta-email">info@phoenix-trust.co.uk</a>
+              </div>
+              <div class="cmeta-block">
+                <span class="cmeta-label">Follow us</span>
+                <div class="contact-socials">
+                  <a href="#" class="social-btn" aria-label="Instagram" rel="noopener">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+                  </a>
+                  <a href="#" class="social-btn" aria-label="Facebook" rel="noopener">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                  </a>
+                  <a href="#" class="social-btn" aria-label="YouTube" rel="noopener">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
+                  </a>
+                  <a href="#" class="social-btn" aria-label="X (Twitter)" rel="noopener">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 4l16 16M20 4L4 20"/></svg>
+                  </a>
+                  <a href="#" class="social-btn" aria-label="LinkedIn" rel="noopener">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                  </a>
+                </div>
+              </div>
+              <div class="cmeta-block">
+                <span class="cmeta-label">Media &amp; Press</span>
+                <p class="cmeta-press">For press releases or media coverage, contact <a href="mailto:info@phoenix-trust.co.uk">info@phoenix-trust.co.uk</a> with subject line <em>Media Enquiry</em>.</p>
               </div>
             </div>
-            <div class="contact-meta-block">
-              <span class="contact-label">Media &amp; Press</span>
-              <p class="contact-press">For press releases, interview requests or media coverage, contact <a href="mailto:info@phoenix-trust.co.uk">info@phoenix-trust.co.uk</a> with the subject line <em>Media Enquiry</em>.</p>
-            </div>
           </div>
-        </div>
 
-        <!-- Right col — form -->
-        <div class="contact-form-wrap reveal-up" style="--delay:0.1s">
-          <p class="form-title">Send us a message</p>
-          <form class="contact-form" id="contact-form" novalidate>
-            <div class="form-row">
+          <div class="contact-form-wrap reveal-up" style="--delay:0.1s">
+            <p class="form-title" aria-hidden="true">Send us a message</p>
+            <form class="contact-form" id="contact-form" novalidate aria-label="Contact form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="fname">First name <span aria-label="required">*</span></label>
+                  <input type="text" id="fname" name="fname" placeholder="e.g. Jane" required aria-required="true" autocomplete="given-name" />
+                </div>
+                <div class="form-group">
+                  <label for="lname">Surname <span aria-label="required">*</span></label>
+                  <input type="text" id="lname" name="lname" placeholder="e.g. Smith" required aria-required="true" autocomplete="family-name" />
+                </div>
+              </div>
               <div class="form-group">
-                <label for="first-name">First name *</label>
-                <input type="text" id="first-name" name="first-name" placeholder="e.g. Jane" required />
+                <label for="cemail">Email address <span aria-label="required">*</span></label>
+                <input type="email" id="cemail" name="cemail" placeholder="your@email.com" required aria-required="true" autocomplete="email" />
               </div>
               <div class="form-group">
-                <label for="surname">Surname *</label>
-                <input type="text" id="surname" name="surname" placeholder="e.g. Smith" required />
+                <label for="org">Organisation</label>
+                <input type="text" id="org" name="org" placeholder="e.g. Community Trust" autocomplete="organization" />
               </div>
-            </div>
-            <div class="form-group">
-              <label for="email">Email address *</label>
-              <input type="email" id="email" name="email" placeholder="your@email.com" required />
-            </div>
-            <div class="form-group">
-              <label for="organisation">Organisation</label>
-              <input type="text" id="organisation" name="organisation" placeholder="e.g. Community Trust" />
-            </div>
-            <div class="form-group">
-              <label for="message">Message *</label>
-              <textarea id="message" name="message" rows="5" placeholder="How can we help?" required></textarea>
-            </div>
-            <button type="submit" class="form-submit">Send message</button>
-            <p class="form-note">Your details will not be shared with third parties.</p>
-          </form>
-        </div>
+              <div class="form-group">
+                <label for="msg">Message <span aria-label="required">*</span></label>
+                <textarea id="msg" name="msg" rows="5" placeholder="How can we help?" required aria-required="true"></textarea>
+              </div>
+              <div id="form-error" role="alert" class="form-error" hidden></div>
+              <button type="submit" class="form-submit">Send message</button>
+              <p class="form-note" id="form-privacy">Your details will not be shared with third parties.</p>
+            </form>
+          </div>
 
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+
+  </main>
 
   <!-- ===================== FOOTER ===================== -->
-  <footer class="site-footer">
+  <footer class="site-footer" role="contentinfo">
     <div class="container">
       <div class="footer-inner">
         <img src="assets/images/logo-full.png" alt="The Phoenix Community Trust" class="footer-logo" />
-        <div class="footer-links">
+        <nav class="footer-links" aria-label="Footer navigation">
           <a href="#about">About Us</a>
           <a href="#impact">Our Impact</a>
           <a href="#where-we-work">Where We Work</a>
           <a href="#grants">Grants</a>
           <a href="#news">News</a>
           <a href="#contact">Contact</a>
-        </div>
+        </nav>
       </div>
       <div class="footer-bottom">
         <p>Registered address: C/O Stone King LLP, Boundary House, 91 Charterhouse Street, London, EC1M 6HR</p>
         <p>&copy; 2026 The Phoenix Community Trust. All rights reserved. | Company No: 16484357</p>
-        <div class="footer-legal">
+        <nav class="footer-legal" aria-label="Legal links">
           <a href="#">Privacy policy</a>
           <a href="#">Cookie policy</a>
           <a href="#">Terms &amp; conditions</a>
           <a href="#">Accessibility</a>
-        </div>
+        </nav>
       </div>
     </div>
   </footer>

@@ -1031,8 +1031,14 @@ button{ cursor: pointer; font-family: inherit; border: none; background: none; }
    RESPONSIVE — TABLET ≤ 900px
    ============================================================ */
 @media (max-width: 900px) {
-  .header-nav { display: none; }
-  .hamburger  { display: flex; }
+  /* Show nav links directly in header — no hamburger */
+  .header-nav {
+    position: static; transform: none; left: auto;
+    gap: 0;
+  }
+  .hamburger   { display: none; }
+  .site-header { justify-content: space-between; }
+  .nav-link    { font-size: 0.6rem; padding: 5px 6px; }
 
   .stats-grid          { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .partners-grid       { grid-template-columns: repeat(2, 1fr); }
@@ -1046,14 +1052,25 @@ button{ cursor: pointer; font-family: inherit; border: none; background: none; }
    RESPONSIVE — MOBILE ≤ 600px
    ============================================================ */
 @media (max-width: 600px) {
-  :root { --h: 60px; --topbar: 30px; }
+  :root { --h: 86px; --topbar: 30px; }
   .topbar { height: var(--topbar); }
   .topbar-inner { padding: 0 14px; }
   .topbar-socials { gap: 10px; }
   .tb-email { font-size: 0.6rem; }
   .section  { padding: 80px 0; }
   .container{ padding: 0 20px; }
-  .site-header { padding: 0 16px; }
+  /* Header: search stays top-right, nav wraps beneath it */
+  .site-header {
+    flex-wrap: wrap; height: auto; min-height: var(--h);
+    padding: 8px 14px 6px; justify-content: flex-end; gap: 4px;
+  }
+  .header-right { order: 1; flex-shrink: 0; }
+  .header-nav   {
+    order: 2; width: 100%;
+    flex-wrap: wrap; justify-content: center; gap: 0;
+    padding-bottom: 4px;
+  }
+  .nav-link { font-size: 0.49rem; padding: 3px 4px; letter-spacing: -0.02em; }
   .trustees-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .tcard-name { font-size: 0.78rem; }
   .tcard-bio  { font-size: 0.62rem; }

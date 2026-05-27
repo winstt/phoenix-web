@@ -1019,12 +1019,17 @@ button{ cursor: pointer; font-family: inherit; border: none; background: none; }
    RESPONSIVE — MOBILE ≤ 600px
    ============================================================ */
 @media (max-width: 600px) {
-  :root { --h: 60px; --topbar: 0px; }
-  .topbar { display: none; }
+  :root { --h: 60px; --topbar: 30px; }
+  .topbar { height: var(--topbar); }
+  .topbar-inner { padding: 0 14px; }
+  .topbar-socials { gap: 10px; }
+  .tb-email { font-size: 0.6rem; }
   .section  { padding: 80px 0; }
   .container{ padding: 0 20px; }
   .site-header { padding: 0 16px; }
-  .trustees-grid { grid-template-columns: 1fr; }
+  .trustees-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .tcard-name { font-size: 0.78rem; }
+  .tcard-bio  { font-size: 0.62rem; }
   .footer-bottom { flex-direction: column; }
   .footer-reg { text-align: left; }
 

@@ -55,6 +55,14 @@
   <!-- ===================== HEADER ===================== -->
   <header class="site-header" id="site-header">
 
+    <!-- Hamburger — left side on mobile, hidden on desktop -->
+    <button class="hamburger" id="hamburger"
+            aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+
     <nav class="header-nav" id="main-nav" aria-label="Primary navigation">
       <a href="#about"         class="nav-link" data-section="about">About Us</a>
       <a href="#impact"        class="nav-link" data-section="impact">Our Impact</a>
@@ -66,9 +74,8 @@
       <a href="#contact"       class="nav-link" data-section="contact">Contact</a>
     </nav>
 
+    <!-- Search — right side -->
     <div class="header-right">
-
-      <!-- Search toggle button -->
       <button class="h-search-btn" id="h-search-btn" aria-label="Open search"
               aria-expanded="false" aria-controls="search-bar-drop">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -76,16 +83,8 @@
           <path d="M10 10L14 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
         </svg>
       </button>
-
-      <!-- Hamburger (mobile) -->
-      <button class="hamburger" id="hamburger"
-              aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </button>
-
     </div>
+
   </header>
 
   <!-- ===================== SEARCH BAR DROP ===================== -->
